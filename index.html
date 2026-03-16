@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Indibiotek Private Limited — Advancing Life Sciences across Biotechnology, Agriculture, Healthcare and Waste Management from Kolkata, India." />
+  <meta name="keywords" content="indibiotek, biotechnology, life sciences, agriculture, healthcare, waste management, India, Kolkata, drug discovery, BIRAC" />
+  <title>Indibiotek Private Limited — Advancing Life Sciences</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="navbar" id="navbar" aria-label="Main navigation">
+  <div class="container">
+    <!-- Logo -->
+    <a href="#home" class="nav-logo" aria-label="Indibiotek Home">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="#00C9A7" stroke-width="1.5" stroke-dasharray="4 2"/>
+        <ellipse cx="18" cy="18" rx="5" ry="12" stroke="#00C9A7" stroke-width="1.5"/>
+        <ellipse cx="18" cy="18" rx="12" ry="5" stroke="#0066FF" stroke-width="1.5"/>
+        <circle cx="18" cy="6"  r="2" fill="#00C9A7"/>
+        <circle cx="18" cy="30" r="2" fill="#00C9A7"/>
+        <circle cx="6"  cy="18" r="2" fill="#0066FF"/>
+        <circle cx="30" cy="18" r="2" fill="#0066FF"/>
+        <circle cx="18" cy="18" r="3" fill="url(#logoGrad)"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00C9A7"/>
+            <stop offset="100%" stop-color="#0066FF"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>Indi<span class="logo-bio">bio</span>tek</span>
+    </a>
+
+    <!-- Desktop nav links -->
+    <ul class="nav-links" role="list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#rnd">R&amp;D</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="#contact" class="btn btn-primary nav-cta">Get In Touch</a>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <nav class="nav-drawer" aria-label="Mobile navigation">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#rnd">R&amp;D</a>
+    <a href="#locations">Locations</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary" style="text-align:center;margin-top:8px;">Get In Touch</a>
+  </nav>
+</nav>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero bg-grid" id="home" aria-label="Hero">
+  <!-- Particle canvas -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Background orbs -->
+  <div class="orb orb-teal"   style="width:500px;height:500px;top:-100px;right:-100px;"></div>
+  <div class="orb orb-blue"   style="width:400px;height:400px;bottom:-50px;left:-100px;"></div>
+  <div class="orb orb-purple" style="width:300px;height:300px;top:40%;left:50%;"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Indibiotek Private Limited
+      </div>
+
+      <h1>
+        Advancing Life Sciences<br />
+        for a <span class="animated-gradient">Healthier Tomorrow</span>
+      </h1>
+
+      <p class="hero-sub">
+        Innovating across <strong>Biotechnology · Agriculture · Healthcare · Waste Management</strong> — bridging science and sustainability from the heart of India.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#services" class="btn btn-primary">
+          <i class="fa-solid fa-flask" aria-hidden="true"></i>
+          Explore Our Work
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section class="about section-pad" id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Text Column -->
+      <div class="reveal reveal-left">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">
+          Science-Driven. <br/>
+          <span class="gradient-text section-underline">Impact-Focused.</span>
+        </h2>
+        <div class="divider"></div>
+
+        <p class="tagline">"Where Science Meets Sustainability"</p>
+
+        <p>
+          Indibiotek Private Limited is a dynamic biotechnology enterprise headquartered in Kolkata, West Bengal, with a pan-India presence spanning five regional offices. We operate at the intersection of cutting-edge research and real-world impact.
+        </p>
+        <p>
+          From drug discovery to sustainable agriculture, our multidisciplinary team is committed to developing solutions that address the most pressing challenges in life sciences, food security, and environmental health.
+        </p>
+
+        <div class="mv-grid reveal reveal-stagger" style="transition-delay:0.2s">
+          <div class="mv-card glass-card">
+            <h4><i class="fa-solid fa-bullseye" style="margin-right:6px;"></i>Mission</h4>
+            <p>To deliver transformative biotechnology solutions that improve lives and protect our planet through rigorous R&amp;D and strategic partnerships.</p>
+          </div>
+          <div class="mv-card glass-card">
+            <h4><i class="fa-solid fa-eye" style="margin-right:6px;"></i>Vision</h4>
+            <p>To become India's most trusted biotech innovation hub, recognised globally for excellence in life sciences and sustainable development.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Column -->
+      <div class="stats-grid reveal reveal-right reveal-stagger">
+        <div class="stat-card glass-card">
+          <div class="stat-number counter-wrap">
+            <span class="gradient-text" data-count="5" data-suffix="+">0+</span>
+          </div>
+          <div class="stat-label">Focus Sectors</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-number counter-wrap">
+            <span class="gradient-text" data-count="5" data-suffix="">0</span>
+          </div>
+          <div class="stat-label">Regional Offices</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-number counter-wrap">
+            <span class="gradient-text" data-count="2" data-suffix="">0</span>
+          </div>
+          <div class="stat-label">R&amp;D Centres</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-number counter-wrap">
+            <span class="gradient-text" data-count="4" data-suffix="+">0+</span>
+          </div>
+          <div class="stat-label">Academic Partners</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section class="services section-pad" id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Our <span class="gradient-text">Focus Areas</span></h2>
+      <div class="divider" style="margin: 20px auto;"></div>
+      <p class="section-desc">
+        We bring scientific rigour and innovation to five critical domains that shape the future of life and sustainability.
+      </p>
+    </div>
+
+    <div class="services-grid reveal reveal-stagger">
+
+      <div class="service-card">
+        <div class="service-icon">🔬</div>
+        <h3>Life Sciences</h3>
+        <p>Comprehensive research spanning molecular biology, biochemistry and translational medicine to drive healthcare breakthroughs.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧬</div>
+        <h3>Biotechnology</h3>
+        <p>Harnessing the power of living systems — from fermentation technology to advanced biomanufacturing — for industrial and medical applications.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Agriculture</h3>
+        <p>Developing bio-based crop protection, soil health solutions and precision-agri tools to boost yield and sustainability.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💊</div>
+        <h3>Healthcare</h3>
+        <p>Advancing diagnostics, therapeutics and drug discovery pipelines that improve patient outcomes across India and beyond.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">♻️</div>
+        <h3>Waste Management</h3>
+        <p>Pioneering bioremediation and eco-friendly waste treatment technologies to protect ecosystems and build circular economies.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     R&D FACILITIES
+============================================================ -->
+<section class="rnd section-pad" id="rnd">
+  <!-- Background orb -->
+  <div class="orb orb-teal" style="width:400px;height:400px;top:-100px;right:-100px;" aria-hidden="true"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="rnd-header reveal">
+      <span class="section-label">Research &amp; Development</span>
+      <h2 class="section-title">Our <span class="gradient-text">R&amp;D Facilities</span></h2>
+      <div class="divider" style="margin: 20px auto;"></div>
+      <p class="section-desc">
+        State-of-the-art research centres collaborating with premier academic institutions to accelerate innovation.
+      </p>
+    </div>
+
+    <div class="rnd-grid">
+
+      <!-- C4D -->
+      <div class="rnd-card reveal reveal-left">
+        <div class="rnd-badge">C4D Centre</div>
+        <h3>Centre for Drug Design Discovery &amp; Development</h3>
+        <div class="rnd-location">
+          <i class="fa-solid fa-location-dot"></i>
+          SRM University, Delhi-NCR, Sonipat
+        </div>
+        <p>
+          A dedicated facility focused on the full spectrum of drug discovery — from computational modelling and hit identification to lead optimisation and preclinical validation.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check-circle"></i> Computational drug design &amp; molecular docking</li>
+          <li><i class="fa-solid fa-check-circle"></i> Medicinal chemistry &amp; synthesis</li>
+          <li><i class="fa-solid fa-check-circle"></i> In vitro and in vivo validation studies</li>
+          <li><i class="fa-solid fa-check-circle"></i> Academic-industry collaborative research</li>
+        </ul>
+      </div>
+
+      <!-- E-YUVA -->
+      <div class="rnd-card reveal reveal-right">
+        <div class="rnd-badge">E-YUVA Centre</div>
+        <h3>E-YUVA Entrepreneurship &amp; Innovation Hub</h3>
+        <div class="rnd-location">
+          <i class="fa-solid fa-location-dot"></i>
+          Adamas University, Kolkata
+        </div>
+        <p>
+          Supported by BIRAC (Biotechnology Industry Research Assistance Council), this centre fosters bio-entrepreneurship, startup incubation and translational research among emerging scientists.
+        </p>
+        <ul>
+          <li><i class="fa-solid fa-check-circle"></i> BIRAC-supported innovation ecosystem</li>
+          <li><i class="fa-solid fa-check-circle"></i> Startup incubation &amp; mentorship</li>
+          <li><i class="fa-solid fa-check-circle"></i> Translational research programmes</li>
+          <li><i class="fa-solid fa-check-circle"></i> Young entrepreneur development</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTNERS
+============================================================ -->
+<section class="partners section-pad" id="partners">
+  <div class="container">
+    <div class="partners-header reveal">
+      <span class="section-label">Our Partners</span>
+      <h2 class="section-title">Trusted <span class="gradient-text">Associations</span></h2>
+      <div class="divider" style="margin: 20px auto;"></div>
+      <p class="section-desc">
+        Building bridges between industry and academia to accelerate innovation and create lasting impact.
+      </p>
+    </div>
+
+    <div class="partners-grid reveal reveal-stagger">
+
+      <div class="partner-card">
+        <div class="partner-icon">🏛️</div>
+        <h3>BIRAC</h3>
+        <p>Biotechnology Industry Research Assistance Council — a Public Sector Enterprise under DBT, Government of India</p>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-icon">🤝</div>
+        <h3>BCCI</h3>
+        <p>The Bengal Chamber of Commerce &amp; Industry — India's oldest chamber of commerce fostering business excellence</p>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-icon">🎓</div>
+        <h3>SRM University</h3>
+        <p>Delhi-NCR Campus, Sonipat — host of the C4D drug design and discovery research centre</p>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-icon">🔬</div>
+        <h3>Adamas University</h3>
+        <p>Kolkata — host of the BIRAC-supported E-YUVA entrepreneurship and innovation centre</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LOCATIONS
+============================================================ -->
+<section class="locations section-pad" id="locations">
+  <div class="container">
+    <div class="locations-header reveal">
+      <span class="section-label">Pan-India Presence</span>
+      <h2 class="section-title">Our <span class="gradient-text">Offices</span></h2>
+      <div class="divider" style="margin: 20px auto;"></div>
+      <p class="section-desc">
+        Strategically located across India to serve diverse markets and ecosystems.
+      </p>
+    </div>
+
+    <div class="locations-grid reveal reveal-stagger">
+
+      <div class="location-card hq">
+        <div class="location-icon"><i class="fa-solid fa-building"></i></div>
+        <h3>Kolkata</h3>
+        <p>West Bengal<br/>Registered Office &amp; HQ</p>
+      </div>
+
+      <div class="location-card">
+        <div class="location-icon"><i class="fa-solid fa-map-marker-alt"></i></div>
+        <h3>Guwahati</h3>
+        <p>Assam<br/>Regional Office</p>
+      </div>
+
+      <div class="location-card">
+        <div class="location-icon"><i class="fa-solid fa-map-marker-alt"></i></div>
+        <h3>Bengaluru</h3>
+        <p>Karnataka<br/>Regional Office</p>
+      </div>
+
+      <div class="location-card">
+        <div class="location-icon"><i class="fa-solid fa-map-marker-alt"></i></div>
+        <h3>Delhi-NCR</h3>
+        <p>National Capital Region<br/>Regional Office</p>
+      </div>
+
+      <div class="location-card">
+        <div class="location-icon"><i class="fa-solid fa-map-marker-alt"></i></div>
+        <h3>Andaman &amp; Nicobar</h3>
+        <p>Union Territory<br/>Regional Office</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section class="contact section-pad" id="contact">
+  <div class="container">
+    <!-- Section header -->
+    <div style="text-align:center; margin-bottom:64px;" class="reveal">
+      <span class="section-label">Get In Touch</span>
+      <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+      <div class="divider" style="margin: 20px auto;"></div>
+      <p class="section-desc" style="margin: 0 auto;">Have a question, proposal or collaboration in mind? We'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- Info -->
+      <div class="contact-info reveal reveal-left">
+        <h3>Reach Us Directly</h3>
+        <p>Our team is ready to discuss research partnerships, service inquiries or any other collaboration opportunities.</p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="contact-item-text">
+              <span>Phone</span>
+              <a href="tel:+918902052927">+91 8902 052 927</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contact-item-text">
+              <span>Email</span>
+              <a href="mailto:info@indibiotek.com">info@indibiotek.com</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <div class="contact-item-text">
+              <span>Website</span>
+              <a href="https://indibiotek.com" target="_blank" rel="noopener noreferrer">indibiotek.com</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="contact-item-text">
+              <span>Registered Office</span>
+              <p>Kolkata, West Bengal, India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="reveal reveal-right">
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Dr. Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Research Collaboration Inquiry" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project or inquiry…" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:14px;">
+            <i class="fa-solid fa-paper-plane"></i>
+            Send Message
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer" id="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo" aria-label="Indibiotek">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="18" cy="18" r="17" stroke="#00C9A7" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <ellipse cx="18" cy="18" rx="5" ry="12" stroke="#00C9A7" stroke-width="1.5"/>
+            <ellipse cx="18" cy="18" rx="12" ry="5" stroke="#0066FF" stroke-width="1.5"/>
+            <circle cx="18" cy="6"  r="2" fill="#00C9A7"/>
+            <circle cx="18" cy="30" r="2" fill="#00C9A7"/>
+            <circle cx="6"  cy="18" r="2" fill="#0066FF"/>
+            <circle cx="30" cy="18" r="2" fill="#0066FF"/>
+            <circle cx="18" cy="18" r="3" fill="url(#logoGrad2)"/>
+            <defs>
+              <linearGradient id="logoGrad2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00C9A7"/>
+                <stop offset="100%" stop-color="#0066FF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>Indi<span class="logo-bio">bio</span>tek</span>
+        </a>
+        <p>Advancing life sciences for a healthier, more sustainable tomorrow — from Kolkata to the world.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="mailto:info@indibiotek.com" class="social-link" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+          <li><a href="#about"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+          <li><a href="#rnd"><i class="fa-solid fa-chevron-right"></i>R&amp;D Facilities</a></li>
+          <li><a href="#partners"><i class="fa-solid fa-chevron-right"></i>Partners</a></li>
+          <li><a href="#locations"><i class="fa-solid fa-chevron-right"></i>Locations</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Life Sciences</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Biotechnology</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Agriculture</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Healthcare</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Waste Management</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>
+            <a href="tel:+918902052927">
+              <i class="fa-solid fa-phone" style="color:var(--color-primary);opacity:1;"></i>
+              +91 8902 052 927
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@indibiotek.com">
+              <i class="fa-solid fa-envelope" style="color:var(--color-primary);opacity:1;"></i>
+              info@indibiotek.com
+            </a>
+          </li>
+          <li>
+            <a href="https://indibiotek.com" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-globe" style="color:var(--color-primary);opacity:1;"></i>
+              indibiotek.com
+            </a>
+          </li>
+          <li>
+            <a href="#locations">
+              <i class="fa-solid fa-location-dot" style="color:var(--color-primary);opacity:1;"></i>
+              Kolkata, West Bengal
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p>&copy; 2024 Indibiotek Private Limited. All rights reserved.</p>
+      <p class="credits">
+        Made with <i class="fa-solid fa-heart"></i> for a healthier tomorrow
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Main script -->
+<script src="js/main.js"></script>
+</body>
+</html>

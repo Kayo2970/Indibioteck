@@ -1,0 +1,237 @@
+/* ============================================================
+   INDIBIOTEK — Animations & Scroll Reveal
+   ============================================================ */
+
+/* ---------- Keyframes ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(10px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 201, 167, 0);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(2deg); }
+  66%       { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 201, 167, 0.2); }
+  50%       { box-shadow: 0 0 40px rgba(0, 201, 167, 0.45); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ---------- Hero Entrance Animations ---------- */
+.hero-badge    { animation: fadeInUp 0.6s ease 0.2s both; }
+.hero h1       { animation: fadeInUp 0.7s ease 0.4s both; }
+.hero-sub      { animation: fadeInUp 0.7s ease 0.6s both; }
+.hero-ctas     { animation: fadeInUp 0.7s ease 0.8s both; }
+.scroll-indicator { animation: bounce 2s ease-in-out 1.5s infinite; }
+
+/* ---------- Scroll Reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.reveal-left {
+  transform: translateX(-28px);
+}
+
+.reveal.reveal-right {
+  transform: translateX(28px);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Stagger delay for children in a grid */
+.reveal-stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 0.35s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 0.45s; }
+
+/* ---------- Animated Gradient Heading ---------- */
+.animated-gradient {
+  background: linear-gradient(270deg, #00C9A7, #0066FF, #7B2FBE, #00C9A7);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* ---------- Floating DNA decoration ---------- */
+.dna-decor {
+  position: absolute;
+  opacity: 0.06;
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- Glow ring (decorative) ---------- */
+.glow-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 201, 167, 0.15);
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* ---------- Progress / loading bar ---------- */
+.page-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00C9A7, #0066FF);
+  z-index: 9999;
+  transition: width 0.2s ease;
+  width: 0%;
+}
+
+/* ---------- Counter animation ---------- */
+.counter-wrap {
+  position: relative;
+}
+
+.counter-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 2px;
+  background: var(--gradient-primary, linear-gradient(90deg, #00C9A7, #0066FF));
+  border-radius: 1px;
+}
+
+/* ---------- Service card icon glow ---------- */
+.service-card:hover .service-icon {
+  box-shadow: 0 0 24px rgba(0, 201, 167, 0.35);
+  border-color: rgba(0, 201, 167, 0.5);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ---------- Partner card logo float ---------- */
+.partner-card:hover .partner-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ---------- Underline animation for section titles ---------- */
+.section-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.section-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00C9A7, #0066FF);
+  border-radius: 2px;
+  transition: width 0.8s ease 0.4s;
+}
+
+.section-underline.visible::after {
+  width: 100%;
+}
+
+/* ---------- Background grid pattern ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0,201,167,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,201,167,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---------- Blob / orb decorations ---------- */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-teal {
+  background: radial-gradient(circle, rgba(0,201,167,0.12), transparent);
+}
+
+.orb-blue {
+  background: radial-gradient(circle, rgba(0,102,255,0.1), transparent);
+}
+
+.orb-purple {
+  background: radial-gradient(circle, rgba(123,47,190,0.08), transparent);
+}
