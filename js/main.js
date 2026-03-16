@@ -1,39 +1,38 @@
 /* ============================================================
-   INDIBIOTEK — Main JavaScript
+   INDIBIOTEK — Main JavaScript  v2.0
    ============================================================ */
 
 'use strict';
 
-// ─── 1. PAGE PROGRESS BAR ───────────────────────────────────
-(function initProgress() {
+// ─── Page progress bar ──────────────────────────────────────
+(function () {
   const bar = document.createElement('div');
-  bar.className = 'page-progress';
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#00C9A7,#0066FF);z-index:9999;width:0;transition:width 0.15s ease;pointer-events:none';
   document.body.prepend(bar);
 
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = (scrolled / total * 100) + '%';
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
   }, { passive: true });
 })();
 
 
-// ─── 2. PARTICLE CANVAS ─────────────────────────────────────
-(function initParticles() {
+// ─── Particle canvas ────────────────────────────────────────
+(function () {
   const canvas = document.getElementById('particle-canvas');
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx    = canvas.getContext('2d');
   let particles = [];
   let animId;
 
-  const CONFIG = {
-    count:       80,
-    maxDist:     130,
-    speed:       0.45,
-    radius:      2.2,
-    color:       '0, 201, 167',
-    lineOpacity: 0.15,
+  const CFG = {
+    count:     window.innerWidth < 768 ? 40 : 72,
+    maxDist:   140,
+    speed:     0.4,
+    radius:    2,
+    color:     '0, 201, 167',
+    lineAlpha: 0.13,
   };
 
   function resize() {
@@ -41,236 +40,199 @@
     canvas.height = canvas.offsetHeight;
   }
 
-  function createParticle() {
+  function mkParticle() {
     return {
-      x:   Math.random() * canvas.width,
-      y:   Math.random() * canvas.height,
-      vx:  (Math.random() - 0.5) * CONFIG.speed * 2,
-      vy:  (Math.random() - 0.5) * CONFIG.speed * 2,
-      r:   Math.random() * CONFIG.radius + 1,
-      opacity: Math.random() * 0.4 + 0.2,
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * CFG.speed * 2,
+      vy: (Math.random() - 0.5) * CFG.speed * 2,
+      r:  Math.random() * CFG.radius + 1,
+      a:  Math.random() * 0.35 + 0.15,
     };
   }
 
   function init() {
     resize();
-    particles = Array.from({ length: CONFIG.count }, createParticle);
+    particles = Array.from({ length: CFG.count }, mkParticle);
   }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw connections
     for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+      const p = particles[i];
 
-        if (dist < CONFIG.maxDist) {
-          const alpha = (1 - dist / CONFIG.maxDist) * CONFIG.lineOpacity;
+      for (let j = i + 1; j < particles.length; j++) {
+        const q  = particles[j];
+        const dx = p.x - q.x;
+        const dy = p.y - q.y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+
+        if (d < CFG.maxDist) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${CONFIG.color}, ${alpha})`;
-          ctx.lineWidth = 0.8;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(${CFG.color},${(1 - d / CFG.maxDist) * CFG.lineAlpha})`;
+          ctx.lineWidth = 0.75;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
           ctx.stroke();
         }
       }
-    }
 
-    // Draw particles
-    particles.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${CONFIG.color}, ${p.opacity})`;
+      ctx.fillStyle = `rgba(${CFG.color},${p.a})`;
       ctx.fill();
 
-      // Move
       p.x += p.vx;
       p.y += p.vy;
-
-      // Bounce off edges
       if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
       if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-    });
+    }
 
     animId = requestAnimationFrame(draw);
   }
 
-  const resizeObs = new ResizeObserver(() => {
-    cancelAnimationFrame(animId);
-    init();
-    draw();
-  });
-
   window.addEventListener('DOMContentLoaded', () => {
     init();
     draw();
-    resizeObs.observe(canvas);
+    new ResizeObserver(() => { cancelAnimationFrame(animId); init(); draw(); }).observe(canvas);
   });
 })();
 
 
-// ─── 3. STICKY NAV ──────────────────────────────────────────
-(function initNav() {
-  const navbar = document.querySelector('.navbar');
-  if (!navbar) return;
-
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+// ─── Sticky navbar ──────────────────────────────────────────
+(function () {
+  const nav = document.querySelector('.navbar');
+  if (!nav) return;
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50), { passive: true });
 })();
 
 
-// ─── 4. MOBILE HAMBURGER MENU ───────────────────────────────
-(function initMobileMenu() {
+// ─── Mobile menu ────────────────────────────────────────────
+(function () {
   const btn    = document.querySelector('.nav-hamburger');
   const drawer = document.querySelector('.nav-drawer');
   if (!btn || !drawer) return;
 
+  function close() {
+    btn.classList.remove('open');
+    drawer.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
   btn.addEventListener('click', () => {
-    const isOpen = btn.classList.toggle('open');
-    drawer.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const open = btn.classList.toggle('open');
+    drawer.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
   });
 
-  // Close on link click
-  drawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      btn.classList.remove('open');
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
 })();
 
 
-// ─── 5. SCROLL REVEAL ───────────────────────────────────────
-(function initScrollReveal() {
-  const elements = document.querySelectorAll('.reveal');
-  if (!elements.length) return;
-
+// ─── Scroll reveal (IntersectionObserver) ───────────────────
+(function () {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Also trigger underline if applicable
-        const underline = entry.target.querySelector('.section-underline');
-        if (underline) underline.classList.add('visible');
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.10, rootMargin: '0px 0px -48px 0px' });
 
-  elements.forEach(el => obs.observe(el));
-
-  // Also observe section-underline directly
-  document.querySelectorAll('.section-underline').forEach(el => {
-    const obs2 = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.5 });
-    obs2.observe(el);
-  });
+  document.querySelectorAll('.reveal, .reveal-stagger, .section-underline').forEach(el => obs.observe(el));
 })();
 
 
-// ─── 6. ANIMATED COUNTERS ───────────────────────────────────
-(function initCounters() {
-  const counters = document.querySelectorAll('[data-count]');
-  if (!counters.length) return;
-
-  function animateCounter(el, target, suffix) {
-    const duration = 2000;
-    const start = performance.now();
-
-    function step(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      el.textContent = current + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.animated) {
-        entry.target.dataset.animated = 'true';
-        const target = parseInt(entry.target.dataset.count, 10);
-        const suffix = entry.target.dataset.suffix || '';
-        animateCounter(entry.target, target, suffix);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(el => obs.observe(el));
-})();
-
-
-// ─── 7. SMOOTH SCROLL (offset for fixed nav) ────────────────
-(function initSmoothScroll() {
-  const NAV_HEIGHT = 72;
-
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-})();
-
-
-// ─── 8. CONTACT FORM ────────────────────────────────────────
-(function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const original = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message Sent!';
-    btn.disabled = true;
-    btn.style.background = 'linear-gradient(135deg, #009E84, #0052cc)';
-
-    setTimeout(() => {
-      btn.innerHTML = original;
-      btn.disabled = false;
-      btn.style.background = '';
-      form.reset();
-    }, 3500);
-  });
-})();
-
-
-// ─── 9. ACTIVE NAV LINK ON SCROLL ───────────────────────────
-(function initActiveNavLink() {
+// ─── Active nav link on scroll ──────────────────────────────
+(function () {
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-
-  if (!sections.length || !navLinks.length) return;
+  const links    = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!sections.length || !links.length) return;
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.style.color = '';
-          link.querySelector && (link.style.color = '');
-        });
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.style.color = '#00C9A7';
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (a) a.classList.add('active');
       }
     });
   }, { threshold: 0.4 });
 
   sections.forEach(s => obs.observe(s));
 })();
+
+
+// ─── Animated counters ──────────────────────────────────────
+(function () {
+  const els = document.querySelectorAll('[data-count]');
+  if (!els.length) return;
+
+  function run(el) {
+    if (el.dataset.done) return;
+    el.dataset.done = '1';
+    const target   = parseInt(el.dataset.count, 10);
+    const suffix   = el.dataset.suffix || '';
+    const duration = 1800;
+    const start    = performance.now();
+
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      // easeOutExpo
+      const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) run(e.target); });
+  }, { threshold: 0.6 });
+
+  els.forEach(el => obs.observe(el));
+})();
+
+
+// ─── Smooth scroll with nav offset ──────────────────────────
+(function () {
+  const H = 72;
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - H;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
+
+
+// ─── Contact form ────────────────────────────────────────────
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const btn   = form.querySelector('button[type="submit"]');
+    const orig  = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Sent Successfully!';
+    btn.disabled  = true;
+
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.disabled  = false;
+      form.reset();
+    }, 4000);
+  });
+})();
+
+
+// ─── DNA helix — trigger draw after load ─────────────────────
+// (Handled entirely by CSS animation on .dna-strand-1 / .dna-strand-2)
+// No JS needed — CSS stroke-dashoffset animation handles the draw-in.

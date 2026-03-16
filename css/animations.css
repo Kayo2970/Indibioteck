@@ -1,39 +1,22 @@
 /* ============================================================
-   INDIBIOTEK — Animations & Scroll Reveal
+   INDIBIOTEK — Animations & Motion System
    ============================================================ */
 
-/* ---------- Keyframes ---------- */
+/* ─── Keyframes ─────────────────────────────────────────── */
+
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeIn {
@@ -41,31 +24,39 @@
   to   { opacity: 1; }
 }
 
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(10px); }
+  50%       { transform: translateX(-50%) translateY(9px); }
 }
 
 @keyframes pulse-dot {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.5);
-    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.6);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(0, 201, 167, 0);
-    transform: scale(1.1);
+    box-shadow: 0 0 0 7px rgba(0, 201, 167, 0);
   }
 }
 
 @keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes float-slow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33%       { transform: translateY(-12px) rotate(2deg); }
-  66%       { transform: translateY(-6px) rotate(-1deg); }
+  33%       { transform: translateY(-14px) rotate(1.5deg); }
+  66%       { transform: translateY(-7px) rotate(-0.8deg); }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 201, 167, 0.2); }
-  50%       { box-shadow: 0 0 40px rgba(0, 201, 167, 0.45); }
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 201, 167, 0.15); }
+  50%       { box-shadow: 0 0 45px rgba(0, 201, 167, 0.40); }
 }
 
 @keyframes gradient-shift {
@@ -79,113 +70,132 @@
   to   { transform: rotate(360deg); }
 }
 
-@keyframes draw-line {
-  from { stroke-dashoffset: 1000; }
+/* DNA strand draw-in */
+@keyframes draw-strand {
+  from { stroke-dashoffset: 1200; }
   to   { stroke-dashoffset: 0; }
 }
 
-/* ---------- Hero Entrance Animations ---------- */
-.hero-badge    { animation: fadeInUp 0.6s ease 0.2s both; }
-.hero h1       { animation: fadeInUp 0.7s ease 0.4s both; }
-.hero-sub      { animation: fadeInUp 0.7s ease 0.6s both; }
-.hero-ctas     { animation: fadeInUp 0.7s ease 0.8s both; }
-.scroll-indicator { animation: bounce 2s ease-in-out 1.5s infinite; }
+/* DNA rung fade in */
+@keyframes rung-appear {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
 
-/* ---------- Scroll Reveal ---------- */
+/* DNA node pulse */
+@keyframes node-pulse {
+  0%, 100% { r: 3.5; opacity: 0.7; }
+  50%       { r: 5.5; opacity: 1; }
+}
+
+/* Underline slide in */
+@keyframes underline-in {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Background gradient animation */
+@keyframes bg-shift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Shimmer for recognition strip */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ─── Hero entrance sequence ────────────────────────────── */
+.hero-badge    { animation: fadeInUp  0.55s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.hero-tagline  { animation: fadeInUp  0.55s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+.hero h1       { animation: fadeInUp  0.65s cubic-bezier(0.22,1,0.36,1) 0.35s both; }
+.hero-sub      { animation: fadeInUp  0.65s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+.hero-pills    { animation: fadeInUp  0.60s cubic-bezier(0.22,1,0.36,1) 0.62s both; }
+.hero-ctas     { animation: fadeInUp  0.60s cubic-bezier(0.22,1,0.36,1) 0.74s both; }
+.hero-dna-wrap { animation: fadeIn    1.2s  cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+
+.scroll-indicator {
+  animation: bounce 2.2s cubic-bezier(0.4,0,0.2,1) 2s infinite;
+}
+
+/* ─── DNA Helix Animations ──────────────────────────────── */
+.dna-strand-1 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw-strand 2.2s cubic-bezier(0.22,1,0.36,1) 0.8s forwards;
+}
+
+.dna-strand-2 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw-strand 2.2s cubic-bezier(0.22,1,0.36,1) 1.1s forwards;
+}
+
+.dna-rung {
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* Stagger rung appearances */
+.dna-rung:nth-child(1)  { animation: rung-appear 0.3s ease 1.4s forwards; }
+.dna-rung:nth-child(2)  { animation: rung-appear 0.3s ease 1.5s forwards; }
+.dna-rung:nth-child(3)  { animation: rung-appear 0.3s ease 1.6s forwards; }
+.dna-rung:nth-child(4)  { animation: rung-appear 0.3s ease 1.7s forwards; }
+.dna-rung:nth-child(5)  { animation: rung-appear 0.3s ease 1.8s forwards; }
+.dna-rung:nth-child(6)  { animation: rung-appear 0.3s ease 1.9s forwards; }
+.dna-rung:nth-child(7)  { animation: rung-appear 0.3s ease 2.0s forwards; }
+.dna-rung:nth-child(8)  { animation: rung-appear 0.3s ease 2.1s forwards; }
+.dna-rung:nth-child(9)  { animation: rung-appear 0.3s ease 2.2s forwards; }
+.dna-rung:nth-child(10) { animation: rung-appear 0.3s ease 2.3s forwards; }
+.dna-rung:nth-child(11) { animation: rung-appear 0.3s ease 2.4s forwards; }
+.dna-rung:nth-child(12) { animation: rung-appear 0.3s ease 2.5s forwards; }
+.dna-rung:nth-child(13) { animation: rung-appear 0.3s ease 2.6s forwards; }
+.dna-rung:nth-child(14) { animation: rung-appear 0.3s ease 2.7s forwards; }
+.dna-rung:nth-child(15) { animation: rung-appear 0.3s ease 2.8s forwards; }
+
+/* DNA helix float after draw */
+.hero-dna-wrap .dna-group {
+  animation: float-slow 7s cubic-bezier(0.4,0,0.2,1) 3.2s infinite;
+}
+
+/* ─── Scroll Reveal ─────────────────────────────────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
 }
 
-.reveal.reveal-left {
-  transform: translateX(-28px);
-}
-
-.reveal.reveal-right {
-  transform: translateX(28px);
-}
+.reveal.reveal-left  { transform: translateX(-24px); }
+.reveal.reveal-right { transform: translateX(24px); }
+.reveal.reveal-scale { transform: scale(0.94); }
 
 .reveal.visible {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: translate(0,0) scale(1);
 }
 
-/* Stagger delay for children in a grid */
-.reveal-stagger > *:nth-child(1) { transition-delay: 0.05s; }
-.reveal-stagger > *:nth-child(2) { transition-delay: 0.15s; }
-.reveal-stagger > *:nth-child(3) { transition-delay: 0.25s; }
-.reveal-stagger > *:nth-child(4) { transition-delay: 0.35s; }
-.reveal-stagger > *:nth-child(5) { transition-delay: 0.45s; }
+/* Stagger for grid children */
+.reveal-stagger > *   { opacity: 0; transform: translateY(20px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+.reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.05s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.12s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.19s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.26s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.33s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.40s; }
 
-/* ---------- Animated Gradient Heading ---------- */
+/* ─── Animated gradient heading ─────────────────────────── */
 .animated-gradient {
-  background: linear-gradient(270deg, #00C9A7, #0066FF, #7B2FBE, #00C9A7);
-  background-size: 300% 300%;
+  background: linear-gradient(270deg, #00C9A7, #4FC3F7, #0066FF, #7B2FBE, #00C9A7);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift 5s ease infinite;
+  animation: gradient-shift 6s ease infinite;
 }
 
-/* ---------- Floating DNA decoration ---------- */
-.dna-decor {
-  position: absolute;
-  opacity: 0.06;
-  animation: float 8s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* ---------- Glow ring (decorative) ---------- */
-.glow-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 201, 167, 0.15);
-  animation: glow-pulse 4s ease-in-out infinite;
-}
-
-/* ---------- Progress / loading bar ---------- */
-.page-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #00C9A7, #0066FF);
-  z-index: 9999;
-  transition: width 0.2s ease;
-  width: 0%;
-}
-
-/* ---------- Counter animation ---------- */
-.counter-wrap {
-  position: relative;
-}
-
-.counter-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 2px;
-  background: var(--gradient-primary, linear-gradient(90deg, #00C9A7, #0066FF));
-  border-radius: 1px;
-}
-
-/* ---------- Service card icon glow ---------- */
-.service-card:hover .service-icon {
-  box-shadow: 0 0 24px rgba(0, 201, 167, 0.35);
-  border-color: rgba(0, 201, 167, 0.5);
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-/* ---------- Partner card logo float ---------- */
-.partner-card:hover .partner-icon {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* ---------- Underline animation for section titles ---------- */
+/* ─── Section underline animate ─────────────────────────── */
 .section-underline {
   position: relative;
   display: inline-block;
@@ -194,44 +204,64 @@
 .section-underline::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -6px;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 2px;
   background: linear-gradient(90deg, #00C9A7, #0066FF);
-  border-radius: 2px;
-  transition: width 0.8s ease 0.4s;
+  border-radius: 1px;
+  transition: width 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s;
 }
 
-.section-underline.visible::after {
-  width: 100%;
+.section-underline.visible::after { width: 100%; }
+
+/* ─── Card hover glow ───────────────────────────────────── */
+.division-card:hover .division-icon,
+.service-card:hover .service-icon {
+  border-color: rgba(0, 201, 167, 0.55);
+  box-shadow: 0 0 22px rgba(0, 201, 167, 0.30);
+  animation: glow-pulse 2s ease-in-out infinite;
 }
 
-/* ---------- Background grid pattern ---------- */
+.partner-card:hover .partner-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Background grid utility ───────────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(0,201,167,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,201,167,0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(0, 201, 167, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 201, 167, 0.025) 1px, transparent 1px);
+  background-size: 52px 52px;
 }
 
-/* ---------- Blob / orb decorations ---------- */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
+/* ─── Orb decorations ───────────────────────────────────── */
+.orb { animation: float-slow 10s ease-in-out infinite; }
+.orb:nth-child(2) { animation-delay: -3s; animation-duration: 13s; }
+.orb:nth-child(3) { animation-delay: -6s; animation-duration: 15s; }
+
+/* ─── Recognition strip badge pulse ─────────────────────── */
+.rec-item i {
+  animation: float 4s ease-in-out infinite;
+}
+.rec-item:nth-child(2) i { animation-delay: -1s; }
+.rec-item:nth-child(3) i { animation-delay: -2s; }
+.rec-item:nth-child(4) i { animation-delay: -3s; }
+
+/* ─── Counter number ────────────────────────────────────── */
+.stat-number span {
+  display: inline-block;
+  transition: transform 0.1s ease;
 }
 
-.orb-teal {
-  background: radial-gradient(circle, rgba(0,201,167,0.12), transparent);
-}
-
-.orb-blue {
-  background: radial-gradient(circle, rgba(0,102,255,0.1), transparent);
-}
-
-.orb-purple {
-  background: radial-gradient(circle, rgba(123,47,190,0.08), transparent);
+/* ─── Reduced motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
