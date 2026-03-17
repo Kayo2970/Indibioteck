@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Indibiotek Product Catalog — Explore our full range of Life Sciences diagnostics, Agri biotech solutions, and Scientific instruments." />
-  <meta property="og:title"       content="Product Catalog — Indibiotek Private Limited" />
+  <meta name="description" content="Indibiotek Product Catalog — Life Sciences diagnostics, Agri (In Cropex) biotech solutions, and Scientific instruments." />
+  <meta property="og:title" content="Product Catalog — Indibiotek Private Limited" />
   <meta property="og:description" content="Browse Indibiotek's complete product catalog across Life Sciences, Agri, and Scientific divisions." />
-  <meta property="og:type"        content="website" />
-  <meta name="theme-color"        content="#161616" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#161616" />
   <title>Product Catalog — Indibiotek Private Limited</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,37 +18,411 @@
   <link rel="stylesheet" href="css/animations.css" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='17' stroke='%2353CFCF' stroke-width='2' fill='none'/%3E%3Cellipse cx='18' cy='18' rx='5' ry='12' stroke='%2353CFCF' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='18' cy='18' rx='12' ry='5' stroke='%2340A1A1' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='18' cy='18' r='3' fill='%2353CFCF'/%3E%3C/svg%3E" />
+
+  <style>
+    /* ── CATALOG-SPECIFIC STYLES ── */
+
+    /* Hero */
+    .catalog-hero {
+      background: #1A2E2E;
+      padding: 120px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .catalog-hero h1 {
+      font-family: 'Cabin', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin: 8px 0 16px;
+    }
+    .catalog-hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.1rem;
+      max-width: 620px;
+    }
+    .catalog-hero .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #53CFCF;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* Division Tab Bar */
+    .cat-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 3px solid #53CFCF;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 133px;
+      z-index: 90;
+      background: #F6F6F6;
+    }
+    .cat-tab {
+      padding: 14px 28px;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.071em;
+      text-transform: uppercase;
+      border: none;
+      background: #F6F6F6;
+      color: #A4A4A4;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cat-tab.active, .cat-tab:hover {
+      color: #53CFCF;
+      background: #fff;
+      border-bottom-color: #53CFCF;
+    }
+
+    /* Division Sections */
+    .division-section {
+      display: none;
+      padding: 56px 0;
+    }
+    .division-section.active {
+      display: block;
+    }
+    .division-section#div-lifesciences { background: #fff; }
+    .division-section#div-agri { background: #F6F6F6; }
+    .division-section#div-scientific { background: #fff; }
+
+    .division-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .division-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(83,207,207,0.12);
+      border: 1px solid rgba(83,207,207,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #53CFCF;
+      flex-shrink: 0;
+    }
+    .division-header h2 {
+      font-family: 'Cabin', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1B1B1B;
+      margin: 0 0 6px;
+    }
+    .division-header p {
+      color: #A4A4A4;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .division-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #53CFCF;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .cropex-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(83,207,207,0.1);
+      border: 1px solid rgba(83,207,207,0.35);
+      color: #308282;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-top: 8px;
+    }
+
+    /* Accordion */
+    .acc-wrap { display: flex; flex-direction: column; gap: 0; }
+    .acc-item { border: 1px solid #DBDBDB; margin-bottom: 8px; }
+    .acc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      background: #F6F6F6;
+      border-bottom: 1px solid transparent;
+      user-select: none;
+    }
+    .acc-header:hover { background: #efefef; }
+    .acc-item.open .acc-header { border-bottom-color: #DBDBDB; }
+    .acc-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .acc-header-left i {
+      color: #53CFCF;
+      font-size: 1rem;
+      width: 18px;
+      text-align: center;
+    }
+    .acc-header h3 {
+      font-family: 'Cabin', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1B1B1B;
+      margin: 0;
+    }
+    .acc-badge {
+      background: #53CFCF;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+    .acc-arrow {
+      color: #A4A4A4;
+      transition: transform 0.3s;
+      font-size: 0.8rem;
+    }
+    .acc-item.open .acc-arrow { transform: rotate(180deg); }
+    .acc-body { display: none; overflow-x: auto; }
+    .acc-item.open .acc-body { display: block; }
+
+    /* Product Table */
+    .prod-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .prod-table th {
+      background: #1A4E4E;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-family: 'Cabin', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .prod-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #DBDBDB;
+      color: #1B1B1B;
+    }
+    .prod-table tr:nth-child(even) td { background: #F6F6F6; }
+    .prod-table tr:nth-child(odd) td { background: #fff; }
+    .prod-table tr:hover td { background: rgba(83,207,207,0.06); }
+    .prod-table .cat-num {
+      font-family: 'Source Sans Pro', monospace;
+      color: #308282;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .prod-table .size-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #F6F6F6;
+      border: 1px solid #DBDBDB;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #1B1B1B;
+    }
+    .catalog-note {
+      background: rgba(83,207,207,0.08);
+      border-left: 3px solid #53CFCF;
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      color: #308282;
+      margin: 0;
+    }
+
+    /* Agri Cards */
+    .agri-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+    .agri-card {
+      background: #fff;
+      border: 1px solid #DBDBDB;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    .agri-card:hover {
+      border-color: #53CFCF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .agri-brand {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #53CFCF;
+    }
+    .agri-name {
+      font-family: 'Cabin', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1B1B1B;
+      margin: 0;
+    }
+    .agri-comp { font-size: 0.8rem; color: #A4A4A4; line-height: 1.5; }
+    .agri-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .agri-chip {
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: #F6F6F6;
+      border: 1px solid #DBDBDB;
+      color: #1B1B1B;
+    }
+
+    /* Scientific Grid */
+    .sci-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 20px;
+    }
+    .sci-card {
+      background: #fff;
+      border: 1px solid #DBDBDB;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+    .sci-card:hover {
+      border-color: #53CFCF;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .sci-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(83,207,207,0.1);
+      border: 1px solid rgba(83,207,207,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #53CFCF;
+    }
+    .sci-card h3 {
+      font-family: 'Cabin', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1B1B1B;
+      margin: 0;
+    }
+    .sci-card p { font-size: 0.875rem; color: #A4A4A4; line-height: 1.6; margin: 0; }
+    .sci-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(83,207,207,0.08);
+      border: 1px solid rgba(83,207,207,0.25);
+      color: #308282;
+    }
+    .sci-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: #161616;
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: 'Cabin', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 12px;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      margin: 0 0 32px;
+    }
+    .cta-banner .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #4DC0C0;
+      color: #fff;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0 32px;
+      min-height: 56px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s;
+      border-radius: 0;
+    }
+    .cta-banner .btn-cta:hover { background: #3aaeae; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sci-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .sci-grid { grid-template-columns: 1fr; }
+      .cat-tab { padding: 10px 14px; font-size: 0.75rem; }
+      .agri-grid { grid-template-columns: 1fr; }
+      .division-header { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ============================================================
-     SKIP LINK
-============================================================ -->
+<!-- Skip Link -->
 <a href="#catalog-main" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;background:#53CFCF;color:#fff;padding:8px 16px;font-weight:700;" onfocus="this.style.left='16px';this.style.width='auto';this.style.height='auto';" onblur="this.style.left='-999px';">Skip to main content</a>
-
 
 <!-- ============================================================
      NAVBAR
 ============================================================ -->
-<nav class="navbar" id="navbar" aria-label="Main navigation">
+<nav class="navbar" id="navbar">
   <div class="container">
-
-    <a href="index.html" class="nav-logo" aria-label="Indibiotek — Home">
-      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <a href="index.html" class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="18.5" stroke="#53CFCF" stroke-width="1.2" stroke-dasharray="3.5 2.5" opacity="0.7"/>
         <ellipse cx="20" cy="20" rx="5.5" ry="13" stroke="#53CFCF" stroke-width="1.5"/>
         <ellipse cx="20" cy="20" rx="13" ry="5.5" stroke="#40A1A1" stroke-width="1.5"/>
-        <circle cx="20" cy="7"  r="2.2" fill="#53CFCF"/>
+        <circle cx="20" cy="7" r="2.2" fill="#53CFCF"/>
         <circle cx="20" cy="33" r="2.2" fill="#53CFCF"/>
-        <circle cx="7"  cy="20" r="2.2" fill="#40A1A1"/>
+        <circle cx="7" cy="20" r="2.2" fill="#40A1A1"/>
         <circle cx="33" cy="20" r="2.2" fill="#40A1A1"/>
         <circle cx="20" cy="20" r="3.8" fill="#53CFCF"/>
-        <circle cx="20" cy="20" r="5.5" stroke="#53CFCF" stroke-width="0.6" opacity="0.3"/>
       </svg>
       <span>Indi<span class="logo-bio">bio</span>tek</span>
     </a>
-
-    <ul class="nav-links" role="list">
+    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#divisions">Divisions</a></li>
@@ -58,15 +432,10 @@
       <li><a href="index.html#locations">Locations</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
-
     <a href="index.html#contact" class="btn btn-primary nav-cta">Get In Touch</a>
-
-    <button class="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </div>
-
-  <nav class="nav-drawer" aria-label="Mobile navigation">
+  <nav class="nav-drawer">
     <a href="index.html">Home</a>
     <a href="index.html#about">About</a>
     <a href="index.html#divisions">Divisions</a>
@@ -75,507 +444,1384 @@
     <a href="index.html#team">Team</a>
     <a href="index.html#locations">Locations</a>
     <a href="index.html#contact">Contact</a>
-    <a href="index.html#contact" class="btn btn-primary" style="text-align:center;margin-top:10px;">Get In Touch</a>
   </nav>
 </nav>
 
-
 <!-- ============================================================
-     CATALOG HERO
+     HERO
 ============================================================ -->
-<header class="catalog-hero" id="catalog-main" aria-label="Product Catalog">
-  <div class="orb orb-teal"   style="width:400px;height:400px;top:-80px;right:-60px;"  aria-hidden="true"></div>
-  <div class="orb orb-blue"   style="width:300px;height:300px;bottom:-60px;left:-60px;" aria-hidden="true"></div>
+<header class="catalog-hero" id="catalog-main">
   <div class="container">
-    <span class="section-label" style="color:#53CFCF;">Product Catalog</span>
-    <h1>Our Products &amp; Solutions</h1>
-    <p>Explore Indibiotek's complete range across Life Sciences, Agri, and Scientific divisions — designed for researchers, healthcare professionals, and agribusinesses.</p>
+    <span class="section-label">Indibiotek Private Limited</span>
+    <h1>Product Catalog</h1>
+    <p>Explore our complete range of diagnostics, agri inputs, and scientific solutions across three divisions — built for researchers, clinicians, and agribusinesses worldwide.</p>
   </div>
 </header>
 
-
 <!-- ============================================================
-     STICKY FILTER BAR
+     STICKY DIVISION TAB BAR
 ============================================================ -->
-<div class="catalog-filters" role="navigation" aria-label="Filter by division">
-  <div class="container">
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">
-        <i class="fa-solid fa-border-all"></i> All Products
-      </button>
-      <button class="filter-btn" data-filter="lifesciences">
-        <i class="fa-solid fa-dna"></i> Life Sciences
-      </button>
-      <button class="filter-btn" data-filter="agri">
-        <i class="fa-solid fa-seedling"></i> Agri
-      </button>
-      <button class="filter-btn" data-filter="scientific">
-        <i class="fa-solid fa-microscope"></i> Scientific
-      </button>
-    </div>
-  </div>
+<div class="cat-tabs" id="cat-tabs-bar" role="tablist" aria-label="Select division">
+  <button class="cat-tab active" data-target="div-lifesciences" role="tab" aria-selected="true">
+    <i class="fa-solid fa-dna" aria-hidden="true"></i> Life Sciences
+  </button>
+  <button class="cat-tab" data-target="div-agri" role="tab" aria-selected="false">
+    <i class="fa-solid fa-seedling" aria-hidden="true"></i> Agri &mdash; In Cropex
+  </button>
+  <button class="cat-tab" data-target="div-scientific" role="tab" aria-selected="false">
+    <i class="fa-solid fa-microscope" aria-hidden="true"></i> Scientific
+  </button>
 </div>
 
+<!-- ============================================================
+     MAIN CATALOG CONTENT
+============================================================ -->
+<main id="catalog-sections">
+
 
 <!-- ============================================================
-     LIFE SCIENCES DIVISION
+     DIVISION 1: LIFE SCIENCES
 ============================================================ -->
-<section class="catalog-section" id="cat-lifesciences" data-division="lifesciences" aria-label="Life Sciences Products">
+<section class="division-section active" id="div-lifesciences">
   <div class="container">
 
-    <div class="catalog-section-header reveal">
-      <div class="catalog-section-icon" aria-hidden="true">
-        <i class="fa-solid fa-dna"></i>
-      </div>
+    <div class="division-header">
+      <div class="division-icon"><i class="fa-solid fa-dna" aria-hidden="true"></i></div>
       <div>
-        <span class="section-label">Division 01</span>
+        <span class="division-label">Division 01</span>
         <h2>Life Sciences</h2>
-        <p>AI/ML-powered portable diagnostics, CRISPR-based molecular detection, and biomedical solutions for human health and food security.</p>
+        <p>Molecular diagnostics, rapid tests, ELISA assays, biochemistry reagents, and veterinary detection kits for human health, aquatics, poultry, and swine.</p>
       </div>
     </div>
 
-    <div class="product-grid reveal-stagger">
+    <div class="acc-wrap">
 
-      <!-- ASSURED Device -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-microchip"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Flagship Platform</span>
-          <h3>ASSURED Portable Diagnostic Device</h3>
-          <p>Integrates LAMP amplification, microfluidics, and CRISPR/Cas detection in a single handheld unit. Supports singlex and multiplex diagnostics for human health, food safety, dairy, veterinary, and aquaculture applications.</p>
-          <div class="product-tags">
-            <span class="product-tag">LAMP Technology</span>
-            <span class="product-tag">CRISPR/Cas</span>
-            <span class="product-tag">Microfluidics</span>
-            <span class="product-tag">AI/ML Powered</span>
+      <!-- CAT 1: Purification Kits -->
+      <div class="acc-item open">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i>
+            <h3>Purification Kits</h3>
+            <span class="acc-badge">99 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-PK-0001</td><td>Pure Blood/Serum/Plasma DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0002</td><td>Pure Blood/Serum/Plasma DNA Isolation Kit</td><td><span class="size-badge">100T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0003</td><td>Pure Blood/Serum/Plasma DNA Isolation Kit</td><td><span class="size-badge">250T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0004</td><td>Pure Stool DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0007</td><td>Pure Urine DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0010</td><td>Pure Sputum DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0013</td><td>Pure Bacterial Genomic DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0016</td><td>Pure Fungal DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0019</td><td>Pure Milk DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0022</td><td>Pure Water/Tissue DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0025</td><td>Pure Soil DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0028</td><td>Pure Virus RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0031</td><td>Pure Tissue RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0034</td><td>Pure Blood RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0037</td><td>Pure Plasma/Serum RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0040</td><td>Pure Bacterial RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0043</td><td>Pure Fungal/Plant RNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0046</td><td>Pure Tissue DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0049</td><td>Pure FFPE Tissue DNA Isolation Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0085</td><td>Pure Plasmid DNA Isolation Kit (Column Based)</td><td><span class="size-badge">20T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0089</td><td>Pure PCR Purification Kit (Column Based)</td><td><span class="size-badge">20T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PK-0093</td><td>Pure Agarose Gel Extraction Kit (Column Based)</td><td><span class="size-badge">20T</span></td></tr>
+            </tbody>
+          </table>
+          <p class="catalog-note"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>All kits available in 50T, 100T, 250T, and 500T sizes. Full catalog on request.</p>
         </div>
       </div>
 
-      <!-- Diagnostic Kits -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-vial-circle-check"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Diagnostics</span>
-          <h3>LAMP-Based Diagnostic Kits</h3>
-          <p>Ready-to-use isothermal amplification kits for rapid, field-deployable pathogen detection. Validated for multiple target organisms across human, animal, and food safety matrices.</p>
-          <div class="product-tags">
-            <span class="product-tag">Isothermal</span>
-            <span class="product-tag">Field Deployable</span>
-            <span class="product-tag">Multiplex</span>
+      <!-- CAT 2: Infectious Disease — Individual Markers -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-virus" aria-hidden="true"></i>
+            <h3>Infectious Disease &mdash; Individual Markers</h3>
+            <span class="acc-badge">35 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0001</td><td>BKV Viral Load Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0002</td><td>Chikungunya Virus Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0003</td><td>CMV Viral Load Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0004</td><td>Clostridium difficile Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0005</td><td>SARS-CoV-2 RT qPCR Kit (V.3.2)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0007</td><td>CT/NG Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0008</td><td>Dengue Virus Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0009</td><td>Dengue Virus QT Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0010</td><td>Dengue Virus Serotyping Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0011</td><td>Dengue &amp; Chikungunya Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0012</td><td>Dengue, Chikungunya &amp; Malaria Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0013</td><td>EBV Real-Time PCR Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0015</td><td>H1N1 Detection Kit (CDC Protocol)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0016</td><td>HBV Viral Load Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0017</td><td>HCV Viral Load Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0018</td><td>HCV Genotyping Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0019</td><td>HIV-1 Viral Load Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0020</td><td>HIV-1 &amp; 2 Detection Kit (RUO)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0021</td><td>HSV1/2 Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0022</td><td>HRSV Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0023</td><td>Human Adenovirus Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0025</td><td>Human Parvovirus B19 Quantitative Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0026</td><td>H1N1/H3N2 with Influenza B Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0027</td><td>Leptospira Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0028</td><td>Malaria Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0029</td><td>MTBC Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0030</td><td>MTBC/NTM Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0031</td><td>Pneumocystis pneumonia Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0032</td><td>Salmonella Enteritidis Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0033</td><td>Scrub Typhus Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0034</td><td>Toxoplasma Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0035</td><td>Zika Virus Detection Kit (RUO)</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- CRISPR Detection Kits -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-scissors"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Molecular Detection</span>
-          <h3>CRISPR/Cas Detection Kits</h3>
-          <p>Next-generation CRISPR-based lateral flow and fluorescent detection kits offering single-nucleotide precision for SNP genotyping and pathogen identification.</p>
-          <div class="product-tags">
-            <span class="product-tag">Lateral Flow</span>
-            <span class="product-tag">SNP Detection</span>
-            <span class="product-tag">High Specificity</span>
+      <!-- CAT 3: Oncology — Individual Markers -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-ribbon" aria-hidden="true"></i>
+            <h3>Oncology &mdash; Individual Markers</h3>
+            <span class="acc-badge">22 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0036</td><td>ALK Fusion Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0037</td><td>BCR-ABL1 Qualitative Kit &mdash; Major</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0040</td><td>BCR-ABL1 Quantitative Kit &mdash; Major (WHO IS)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0047</td><td>BRAF Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0048</td><td>C-Kit Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0049</td><td>CALR Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0051</td><td>EGFR Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0052</td><td>FLT3 Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0053</td><td>HLA-B27 Detection Kit (Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0054</td><td>IDH1/2 Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0056</td><td>JAK2 Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0057</td><td>JAK2 QT Kit (Allele Burden)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0058</td><td>KRAS Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0059</td><td>MGMT Methylation Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0060</td><td>MPL Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0061</td><td>MYD88 Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0062</td><td>NPM1 Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0064</td><td>NRAS Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0066</td><td>PIK3CA Mutations Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0067</td><td>PML-RARA Qualitative Kit (BCR1, BCR2 &amp; BCR3)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0068</td><td>PML-RARA Quantitative Kit (BCR1, BCR2 &amp; BCR3)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDIM-0070</td><td>ROS1 Fusion Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Reagents & Buffers -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-flask"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Reagents</span>
-          <h3>Molecular Biology Reagents &amp; Buffers</h3>
-          <p>High-purity reagents, enzymes, and buffer formulations optimised for LAMP, CRISPR, PCR, and gel electrophoresis workflows in diagnostic and research settings.</p>
-          <div class="product-tags">
-            <span class="product-tag">Research Grade</span>
-            <span class="product-tag">Diagnostic Grade</span>
-            <span class="product-tag">ISO Compatible</span>
+      <!-- CAT 4: AMR — Individual Markers -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-shield-virus" aria-hidden="true"></i>
+            <h3>AMR &mdash; Individual Markers</h3>
+            <span class="acc-badge">5 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBAMRIM-0001</td><td>MDR-TB Fast Detection Kit (RIF-INH, Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRIM-0002</td><td>MDR-TB Fast Detection Kit (RIF-INH, Extraction-free)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRIM-0003</td><td>Antimicrobial Resistance Detection Kit (Carbapenamase Resistance)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRIM-0004</td><td>MRSA Detection Kit (Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRIM-0005</td><td>ESBL Gene Detection Kit (Multiplex Real-Time PCR)</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Food Safety Panel -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-wheat-awn"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Food Safety</span>
-          <h3>Food Safety Detection Panel</h3>
-          <p>Rapid multiplex detection panels for common foodborne pathogens — Salmonella, E. coli O157, Listeria, and Campylobacter — compliant with FSSAI and CODEX guidelines.</p>
-          <div class="product-tags">
-            <span class="product-tag">FSSAI Aligned</span>
-            <span class="product-tag">Multiplex</span>
-            <span class="product-tag">Rapid Results</span>
+      <!-- CAT 5: Infectious Diseases — Panels -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-vials" aria-hidden="true"></i>
+            <h3>Infectious Diseases &mdash; Panels</h3>
+            <span class="acc-badge">11 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBIDP-0001</td><td>Respiratory Bacterial Pathogen Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0002</td><td>Respiratory Viral Pathogen Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0003</td><td>Encephalitis Panel (Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0004</td><td>ToRCH Panel (Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0005</td><td>Flu Panel (Real-Time Qualitative PCR)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0006</td><td>SARI Panel 1 Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0007</td><td>Sepsis AMR Panel Kit (RUO)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0008</td><td>STD Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0009</td><td>Transplant Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0010</td><td>Tropical Fever Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBIDP-0011</td><td>UTI ID Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Veterinary Panel -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-paw"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Veterinary &amp; Aquaculture</span>
-          <h3>Veterinary Diagnostic Kits</h3>
-          <p>On-site diagnostic kits for livestock and aquaculture disease surveillance. Detects viral, bacterial, and parasitic pathogens with minimal lab infrastructure required.</p>
-          <div class="product-tags">
-            <span class="product-tag">On-Site Testing</span>
-            <span class="product-tag">Livestock</span>
-            <span class="product-tag">Aquaculture</span>
+      <!-- CAT 6: AMR Panels -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-bacteria" aria-hidden="true"></i>
+            <h3>AMR Panels</h3>
+            <span class="acc-badge">13 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0001</td><td>AMR Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0002</td><td>Carbapenem Resistance Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0003</td><td>Carbapenem-Resistant Enterobacteriaceae (CRE) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0004</td><td>ESBL &amp; Carbapenem Resistance Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0005</td><td>ESBL Resistance Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0006</td><td>ESKAPE ID &amp; AMR Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0007</td><td>GPP-CID &amp; Carba-R Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0008</td><td>Rifampicin Resistant MTB Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0009</td><td>Rifampicin &amp; Isoniazid Resistant MTB Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0010</td><td>MRSA Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0011</td><td>VRE Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0012</td><td>VRSA Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBAMRP-0013</td><td>UTI AMR Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-    </div><!-- /product-grid -->
+      <!-- CAT 7: Women's Health — HPV Panel -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-venus" aria-hidden="true"></i>
+            <h3>Women's Health &mdash; HPV Panel</h3>
+            <span class="acc-badge">5 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBWHPVP-0001</td><td>HPV 16 &amp; 18 Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBWHPVP-0002</td><td>HPV HR with 16 &amp; 18 Differentiation Kit (Single tube)</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBWHPVP-0003</td><td>HPV HR and LR with 16 &amp; 18 Differentiation Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBWHPVP-0004</td><td>HPV HR Genotyping Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBWHPVP-0005</td><td>HPV High Risk Genotyping Plus Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-    <!-- Patent note -->
-    <p class="reveal" style="margin-top:32px;font-size:0.875rem;color:var(--text-secondary);text-align:center;">
-      <i class="fa-solid fa-shield-halved" style="color:var(--brand-teal);margin-right:6px;"></i>
-      Patent Application No. <strong style="color:var(--text-primary);">202511077832</strong> — Autonomous Robotic Biomedical Classification System
-    </p>
+      <!-- CAT 8: Oncology Panels -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>
+            <h3>Oncology Panels</h3>
+            <span class="acc-badge">8 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HMBOP-0001</td><td>Acute Leukemia Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0002</td><td>ALL Comprehensive Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0003</td><td>AML Comprehensive Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0004</td><td>Colorectal Cancer Mutations Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0005</td><td>Leukemia Fusion Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0006</td><td>Lung Cancer Mutations Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0007</td><td>MPN Mutations Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HMBOP-0008</td><td>Paediatric Leukemia Panel Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-  </div>
+      <!-- CAT 9: Rapid Tests -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+            <h3>Rapid Tests</h3>
+            <span class="acc-badge">31 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HRT-0001</td><td>Chikungunya IgM/IgG Antibodies Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0002</td><td>CK-MB Test &mdash; Device</td><td><span class="size-badge">5T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0003</td><td>COVID-19 Antigen Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0004</td><td>CRP Test &mdash; Device (Semiquantitative)</td><td><span class="size-badge">5T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0005</td><td>Dengue Combo Test (Ag+Ab) &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0006</td><td>Dengue IgG/IgM Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0007</td><td>Dengue NS1 Antigen Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0008</td><td>Fecal Occult Blood Detection Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0009</td><td>Filariasis IgG/IgM Antibodies Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0010</td><td>HBsAg Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0011</td><td>HCV Ab Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0012</td><td>HEV IgG/IgM Antibodies Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0013</td><td>HIV 1 and HIV 2 Ab Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0014</td><td>HIV 1/2 Ab + HCV Ab + Syphilis Ab + HBsAg Ag Combo Test</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0015</td><td>H. Pylori Antibodies Detection Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0016</td><td>IgE Test &mdash; Device (Semiquantitative)</td><td><span class="size-badge">5T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0017</td><td>Leptospira IgG/IgM Antibodies Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0018</td><td>Leptospira IgM Antibodies &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0019</td><td>LH Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0020</td><td>Malaria Pf (HRP2)/PAN (pLDH) Antigen Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0021</td><td>Malaria Pf (HRP2)/Pv (pLDH) Antigen Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0022</td><td>Myoglobin Test Device</td><td><span class="size-badge">5T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0023</td><td>NT-proBNP Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0024</td><td>PCT (Procalcitonin) Test &mdash; Device (Semiquantitative)</td><td><span class="size-badge">5T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0025</td><td>Pregnancy Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0027</td><td>S. Typhi IgG/IgM Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0028</td><td>Scrub Typhus IgG/IgM Antibodies &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0029</td><td>Sickle Cell Anemia Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0030</td><td>Syphilis Antibody Test &mdash; Device</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0032</td><td>Troponin I Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HRT-0033</td><td>Troponin T Test &mdash; Device</td><td><span class="size-badge">10T</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CAT 10: ELISA Tests -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-flask" aria-hidden="true"></i>
+            <h3>ELISA Tests</h3>
+            <span class="acc-badge">7 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HELISA-0001</td><td>ELISA Assay &mdash; Dengue IgG Antibodies</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0002</td><td>ELISA Assay &mdash; Dengue IgM Antibodies</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0003</td><td>ELISA Assay &mdash; HIV 1 and HIV 2 Antibodies</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0004</td><td>ELISA Assay &mdash; Dengue NS1 Antigen</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0005</td><td>ELISA Assay &mdash; Hepatitis B Surface Antigen (HBsAg)</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0006</td><td>ELISA Assay &mdash; Antibodies to HCV (3rd Gen.)</td><td><span class="size-badge">96T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HELISA-0007</td><td>ELISA Assay &mdash; HIV P24 Antigen and Antibodies to HIV 1 &amp; 2</td><td><span class="size-badge">96T</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CAT 11: Clinical Biochemistry -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i>
+            <h3>Clinical Biochemistry</h3>
+            <span class="acc-badge">119+ Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-HCB-0001</td><td>Total Bile Acid Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0002</td><td>Homocysteine Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0003</td><td>Creatinine Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0004</td><td>Glucose Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0006</td><td>Free Fatty Acid Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0007</td><td>C-Reactive Protein (CRP) Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0015</td><td>Ferritin Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0016</td><td>Alpha-Amylase (&alpha;-AMY) Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0019</td><td>Glycated Hemoglobin (HbA1c) Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0021</td><td>Lipase (LPS) Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0032</td><td>Angiotensin-Converting Enzyme (ACE) Assay Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0037</td><td>Adenosine Deaminase (ADA) Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0039</td><td>HDL Cholesterol Measurement Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0040</td><td>LDL Cholesterol Measurement Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0045</td><td>Uric Acid Determination Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0046</td><td>D-Dimer Determination Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0047</td><td>Troponin I Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0050</td><td>sdLDL-C (Small Dense LDL Cholesterol) Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0051</td><td>Immunoglobulin E (IgE) Kit</td><td><span class="size-badge">50T</span></td></tr>
+              <tr><td class="cat-num">IBLS-HCB-0052</td><td>&beta;2-microglobulin Reagent</td><td><span class="size-badge">50T</span></td></tr>
+            </tbody>
+          </table>
+          <p class="catalog-note"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>119+ reagents and kits available. Full catalog on request.</p>
+        </div>
+      </div>
+
+      <!-- CAT 12: Aquatic Diagnostics -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-fish" aria-hidden="true"></i>
+            <h3>Aquatic Diagnostics (Real-Time PCR)</h3>
+            <span class="acc-badge">50 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-ARTP-0001</td><td>White Spot Syndrome Virus (WSSV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0002</td><td>IHHNV Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0003</td><td>Necrotizing Hepatopancreatitis Bacteria (NHPB) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0009</td><td>Koi Herpesvirus (KHV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0011</td><td>Aeromonas hydrophila Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0016</td><td>Shrimp Enterocytozoon hepatopenaei (EHP) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0024</td><td>Shrimp Acute Hepatopancreatic Necrosis Syndrome (AHPNS) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0033</td><td>Taura Syndrome Virus (TSV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0034</td><td>Shrimp Yellow Head Disease Virus (YHV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0039</td><td>Fish Nervous Necrosis Virus (NNV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0041</td><td>Tilapia Lake Virus (TiLV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0043</td><td>Infectious Salmon Anemia Virus (ISAV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-ARTP-0046</td><td>Infectious Pancreatic Necrosis Virus (IPNV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
+          <p class="catalog-note"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>50 detection kits available for aquatic pathogens. Full catalog on request.</p>
+        </div>
+      </div>
+
+      <!-- CAT 13: Poultry Diagnostics -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-crow" aria-hidden="true"></i>
+            <h3>Poultry Diagnostics (Real-Time PCR)</h3>
+            <span class="acc-badge">63 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-PRTP-0001</td><td>Mycoplasma synoviae (MS) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0002</td><td>Marek's Disease Virus (MDV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0003</td><td>Mycoplasma gallisepticum (MG) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0007</td><td>Salmonella Enteritidis (SE) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0023</td><td>Newcastle Disease Virus (NDV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0025</td><td>Avian Infectious Bronchitis Virus (AIBV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0028</td><td>Infectious Bursal Disease Virus (IBDV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0035</td><td>7 Types of Chicken Coccidiosis Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0044</td><td>Avian Influenza Virus Universal (AIV-U) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0047</td><td>Avian Influenza Virus H5 Subtype (AIV-H5) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-PRTP-0048</td><td>Avian Influenza Virus H7 Subtype (AIV-H7) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
+          <p class="catalog-note"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>63 detection kits available for poultry pathogens. Full catalog on request.</p>
+        </div>
+      </div>
+
+      <!-- CAT 14: Swine Diagnostics -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>
+            <h3>Swine Diagnostics (Real-Time PCR)</h3>
+            <span class="acc-badge">37+ Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <table class="prod-table">
+            <thead>
+              <tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="cat-num">IBLS-SRTP-0001</td><td>Pseudorabies Virus (PRV-gB) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-SRTP-0002</td><td>Porcine Circovirus Universal (PCV-U) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-SRTP-0012</td><td>Porcine Circovirus Type 2 (PCV-2) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-SRTP-0017</td><td>Porcine Circovirus Type 3 (PCV-3) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-SRTP-0031</td><td>African Swine Fever Virus (ASFV) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+              <tr><td class="cat-num">IBLS-SRTP-0037</td><td>Foot and Mouth Disease Virus Universal (FMDV-U) Detection Kit</td><td><span class="size-badge">25T</span></td></tr>
+            </tbody>
+          </table>
+          <p class="catalog-note"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>37+ detection kits available for swine pathogens. Full catalog on request.</p>
+        </div>
+      </div>
+
+    </div><!-- /.acc-wrap -->
+  </div><!-- /.container -->
 </section>
 
 
 <!-- ============================================================
-     AGRI DIVISION
+     DIVISION 2: AGRI — IN CROPEX
 ============================================================ -->
-<section class="catalog-section" id="cat-agri" data-division="agri" aria-label="Agri Products">
+<section class="division-section" id="div-agri">
   <div class="container">
 
-    <div class="catalog-section-header reveal">
-      <div class="catalog-section-icon" aria-hidden="true">
-        <i class="fa-solid fa-seedling"></i>
-      </div>
+    <div class="division-header">
+      <div class="division-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
       <div>
-        <span class="section-label">Division 02</span>
-        <h2>Agri</h2>
-        <p>Sustainable bio-based agricultural solutions designed to boost crop yield, protect soil health, and replace harmful chemical inputs with safer biological alternatives.</p>
+        <span class="division-label">Division 02</span>
+        <h2>Agri Division</h2>
+        <p>FCO-compliant micronutrients, biostimulants, organic fertilizers, humic/fulvic acids, protein hydrolysates, seaweed extracts, and adjuvants for all crop types.</p>
+        <span class="cropex-badge"><i class="fa-solid fa-leaf" aria-hidden="true"></i> Powered by In Cropex</span>
       </div>
     </div>
 
-    <div class="product-grid reveal-stagger">
+    <div class="acc-wrap">
 
-      <!-- Biofertilisers -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-leaf"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Soil Health</span>
-          <h3>Biofertilisers</h3>
-          <p>Microbial-based biofertiliser formulations that fix atmospheric nitrogen, solubilise phosphate, and enrich soil microbiomes — reducing chemical fertiliser dependency by up to 40%.</p>
-          <div class="product-tags">
-            <span class="product-tag">N-Fixing</span>
-            <span class="product-tag">P-Solubilising</span>
-            <span class="product-tag">Soil Enrichment</span>
+      <!-- AGRI CAT 1: Micronutrients — FCO Products -->
+      <div class="acc-item open">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-atom" aria-hidden="true"></i>
+            <h3>Micronutrients &mdash; FCO Products</h3>
+            <span class="acc-badge">8 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">OroZing</span>
+              <h3 class="agri-name">Zinc Oxide Suspension</h3>
+              <p class="agri-comp">Zn 39.5% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip"><i class="fa-solid fa-spray-can-sparkles" style="margin-right:4px;font-size:0.65rem;"></i>Foliar: 1&ndash;2 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">ZincEx</span>
+              <h3 class="agri-name">Zn-EDTA</h3>
+              <p class="agri-comp">Zinc (as Zn) 12% w/w</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 0.5&ndash;1 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">IronEave</span>
+              <h3 class="agri-name">Fe-EDTA</h3>
+              <p class="agri-comp">Iron (as Fe) 12% w/w</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 0.5&ndash;1 ml/l</span>
+                <span class="agri-chip">Soil: 5 kg/acre</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">BoroFiX</span>
+              <h3 class="agri-name">Boron Ethanolamine</h3>
+              <p class="agri-comp">Boron (as B) 10% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1&ndash;3 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">EASY ZINC</span>
+              <h3 class="agri-name">Chelated Zinc as Zn-HEDP</h3>
+              <p class="agri-comp">Zinc 17% w/w</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: as directed</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">EASY IRON</span>
+              <h3 class="agri-name">Chelated Iron as Fe-HEDP</h3>
+              <p class="agri-comp">Iron 17% w/w</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: as directed</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">CaLEASY</span>
+              <h3 class="agri-name">Liquid Calcium</h3>
+              <p class="agri-comp">Calcium (Ca) 11% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar/Drip: 1.5&ndash;2 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Orths</span>
+              <h3 class="agri-name">Orthosilicic Acid &mdash; Beneficial Element Fertilizer</h3>
+              <p class="agri-comp">Orthosilicic Acid 2%, Plant-available Silicon (Si) 0.9%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2&ndash;3 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Bioinsecticides -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-bug-slash"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Crop Protection</span>
-          <h3>Bioinsecticides</h3>
-          <p>Entomopathogenic fungi and bacteria-based insect control formulations that target key agricultural pests while remaining safe for beneficial insects, mammals, and the environment.</p>
-          <div class="product-tags">
-            <span class="product-tag">Biopesticide</span>
-            <span class="product-tag">Eco-Safe</span>
-            <span class="product-tag">Broad Spectrum</span>
+      <!-- AGRI CAT 2: Organic & Complex Fertilizers -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-recycle" aria-hidden="true"></i>
+            <h3>Organic &amp; Complex Fertilizers</h3>
+            <span class="acc-badge">4 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">MittiDhan</span>
+              <h3 class="agri-name">Organic Carbon 14%</h3>
+              <p class="agri-comp">N-0.5:P-0.5:K-0.5, Organic Carbon 14%, Total Nitrogen &ge;0.5%, P&#8322;O&#8325; &ge;0.5%, K&#8322;O &ge;0.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: 50&ndash;100 kg/acre</span>
+                <span class="agri-chip">Sugarcane, Vegetables, Flowers</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">CROMINS+</span>
+              <h3 class="agri-name">Ammonium Polyphosphate (N-10:P-34:K-0)</h3>
+              <p class="agri-comp">Total Nitrogen 10%, P&#8322;O&#8325; 34%, Water soluble P&#8322;O&#8325; 34%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 5 ml/l</span>
+                <span class="agri-chip">Drip: 3.5 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">UreAN-32</span>
+              <h3 class="agri-name">Urea Ammonium Nitrate N (32%)</h3>
+              <p class="agri-comp">Urea nitrogen 17%, Ammonium nitrogen 8%, Nitrate nitrogen 7%, Total N 32%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil/Fertigation: as directed</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">CROMINED+</span>
+              <h3 class="agri-name">Zincated Phosphate Suspension (N-0:P-14:K-0, Zn-17.5%)</h3>
+              <p class="agri-comp">Total P&#8322;O&#8325; 14%, Zinc (as Zn) 17.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: 6&ndash;8 ml per kg of seeds</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Biopesticides -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-shield-virus"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Crop Protection</span>
-          <h3>Biopesticides</h3>
-          <p>Plant-extract and microbial-derived pesticide alternatives for integrated pest management (IPM) programmes. CIBRC-compliant formulations for major kharif and rabi crops.</p>
-          <div class="product-tags">
-            <span class="product-tag">CIBRC Compliant</span>
-            <span class="product-tag">IPM Compatible</span>
-            <span class="product-tag">Residue-Free</span>
+      <!-- AGRI CAT 3: Liquid Fertilizers -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+            <h3>Liquid Fertilizers</h3>
+            <span class="acc-badge">7 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">NPKEASY</span>
+              <h3 class="agri-name">N-8-P-8-K-8</h3>
+              <p class="agri-comp">Total N 8%, P&#8322;O&#8325; 8%, K&#8322;O 8%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 10 ml/l</span>
+                <span class="agri-chip">Sugarcane, Vegetables, Fruits</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">In Cropex</span>
+              <h3 class="agri-name">Chelated Zinc as Zinc-Glycine (Zn-6.80%)</h3>
+              <p class="agri-comp">Zinc (as Zn) 6.80% w/v (Zinc-Glycine chelate)</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 0.5&ndash;2 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Zill-c</span>
+              <h3 class="agri-name">Chelated Calcium as Calcium-Glycine (Ca-6%)</h3>
+              <p class="agri-comp">Calcium (Ca) 6% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.5&ndash;2 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">In Cropex</span>
+              <h3 class="agri-name">Chelated Boron as Boron-Glycine (B-5%)</h3>
+              <p class="agri-comp">Boron (as B) 5% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 0.5&ndash;1 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">NKCav+</span>
+              <h3 class="agri-name">NK Fortified with Calcium, Magnesium &amp; Boron</h3>
+              <p class="agri-comp">N-6%, K&#8322;O-18%, Ca-5%, Mg-2%, B-0.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 4&ndash;6 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">NPK Boost+</span>
+              <h3 class="agri-name">NPK Fortified with Zinc &amp; Boron</h3>
+              <p class="agri-comp">N-11%, P&#8322;O&#8325;-11%, K&#8322;O-8%, Zn-0.7%, B-0.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3&ndash;5 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">CALCiu-Mg+</span>
+              <h3 class="agri-name">Calcium Nitrate Fortified with Magnesium</h3>
+              <p class="agri-comp">Ca-15%, N-10%, Mg-2%, Water soluble Ca&#8324;&#8320; as CaO-15%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: as directed</span>
+                <span class="agri-chip">Vegetables, Pulses &amp; Fruits</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Biofungicides -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-circle-nodes"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Disease Control</span>
-          <h3>Biofungicides</h3>
-          <p>Trichoderma and Bacillus-based fungal disease control products effective against Fusarium wilt, Rhizoctonia, Pythium, and other soil-borne pathogens in key field and horticultural crops.</p>
-          <div class="product-tags">
-            <span class="product-tag">Trichoderma</span>
-            <span class="product-tag">Bacillus Based</span>
-            <span class="product-tag">Soil-Borne</span>
+      <!-- AGRI CAT 4: Biostimulants -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-spa" aria-hidden="true"></i>
+            <h3>Biostimulants &mdash; Mixed Formulations</h3>
+            <span class="acc-badge">5 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">MaxMore / InroQment</span>
+              <h3 class="agri-name">Mixture of Seaweed Extract, Humic Acid, Amino Acids &amp; Vitamins (Liquid)</h3>
+              <p class="agri-comp">Free amino acids &ge;9g/L, Humic acid &ge;4.18g/L; Seaweed+Humic+Amino+Vitamins blend</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3 ml/l</span>
+                <span class="agri-chip">Tomato, Potato &amp; Other Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">OxyHITA</span>
+              <h3 class="agri-name">Mixture of Antioxidant &amp; Vitamins (Powder)</h3>
+              <p class="agri-comp">Vitamin C 5g, Vitamin B complex 4g/l min., Total Dissolved solids per 100 g &ge;95</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1&ndash;1.5 g/l</span>
+                <span class="agri-chip">Crops &amp; Potato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme</span>
+              <h3 class="agri-name">Mixture of Humic Acid &amp; Seaweed Extract (Liquid)</h3>
+              <p class="agri-comp">Ascophyllum nodosum + Humic acid blend</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2&ndash;3 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Jarcoyme All Mix</span>
+              <h3 class="agri-name">Mixture of Humic Acid, Amino Acids, Vitamins &amp; Bio-chemicals (Powder)</h3>
+              <p class="agri-comp">20+ components: amino acids, vitamins, organic matter, humic acid</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: two applications at 25 kg/ha</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme+</span>
+              <h3 class="agri-name">Mixture of Humic Acid &amp; Seaweed Extract (Powder)</h3>
+              <p class="agri-comp">Seaweed + Humic acid powder blend</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: two applications at 27 kg/ha</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- PGR -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-arrow-trend-up"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Yield Enhancement</span>
-          <h3>Plant Growth Regulators (PGR)</h3>
-          <p>Bio-rational PGR formulations derived from natural sources that promote root development, flowering, fruit set, and early maturity — boosting overall crop productivity.</p>
-          <div class="product-tags">
-            <span class="product-tag">Natural Origin</span>
-            <span class="product-tag">Root Development</span>
-            <span class="product-tag">Yield Boost</span>
+      <!-- AGRI CAT 5: Humic Acid & Fulvic Acid Derivatives -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-mountain" aria-hidden="true"></i>
+            <h3>Humic Acid &amp; Fulvic Acid Derivatives</h3>
+            <span class="acc-badge">8 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">HFA 25.05</span>
+              <h3 class="agri-name">Humic and Fulvic Acid 25.05% (Liquid)</h3>
+              <p class="agri-comp">Humic acid 14.921%, Total organic carbon 14%, pH 9.5&ndash;10.5</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: two applications at 103 l/ha</span>
+                <span class="agri-chip">Tomato &amp; Potato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme+</span>
+              <h3 class="agri-name">Humates &amp; Fulvates 22% (Liquid)</h3>
+              <p class="agri-comp">Total water soluble humates &amp; fulvates 22%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1&ndash;2 ml/l</span>
+                <span class="agri-chip">Grapevines &amp; Other Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme+</span>
+              <h3 class="agri-name">Humates 12.5% (Liquid)</h3>
+              <p class="agri-comp">Humate (as K) 12.5%, Fulvic acid 2.38%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 ml/l</span>
+                <span class="agri-chip">Grapevines &amp; Other Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">H160</span>
+              <h3 class="agri-name">Humic Acid 6% (Liquid)</h3>
+              <p class="agri-comp">Organic matter 8%, Humic acid 6%, Specific gravity 1.03</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 ml/l</span>
+                <span class="agri-chip">Drip: 1.25&ndash;1.5 l/ha</span>
+                <span class="agri-chip">Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme+GR</span>
+              <h3 class="agri-name">Humic Acid 51% (Granular)</h3>
+              <p class="agri-comp">Humic acid 51% Granular, Total organic carbon 46%, Moisture &lt;15%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: two applications at 1.5 kg/acre</span>
+                <span class="agri-chip">Tomato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">HA 1.7</span>
+              <h3 class="agri-name">Humic Acid 1.5% (Granules)</h3>
+              <p class="agri-comp">Humic acid per 100g &ge;1.5, Organic matter per 100g &ge;2.5, Fulvic acid 0.5&ndash;1%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: two applications at 30 kg/acre</span>
+                <span class="agri-chip">Chilli</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">HFA 76</span>
+              <h3 class="agri-name">Humic &amp; Fulvic Acid 76% (Powder)</h3>
+              <p class="agri-comp">Humic acid &ge;75%, Total organic carbon &ge;26.52%, Solubility in water &ge;95%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: 750 g/acre</span>
+                <span class="agri-chip">Tomato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Inroyme+P</span>
+              <h3 class="agri-name">Potassium Humate 49% (Powder)</h3>
+              <p class="agri-comp">Humic acid (K+) &ge;22%, Potassium &ge;22% min.</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: 1 kg/acre</span>
+                <span class="agri-chip">Paddy &amp; Other Crops</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Bio-Organics -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-recycle"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Soil Conditioning</span>
-          <h3>Bio-Organic Soil Conditioners</h3>
-          <p>Humic acid, fulvic acid, and seaweed-derived soil conditioning blends that improve water retention, cation exchange capacity, and overall soil health for sustainable agriculture.</p>
-          <div class="product-tags">
-            <span class="product-tag">Humic Acid</span>
-            <span class="product-tag">Seaweed Derived</span>
-            <span class="product-tag">Soil Health</span>
+      <!-- AGRI CAT 6: Protein Hydrolysates & Amino Acids -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-dna" aria-hidden="true"></i>
+            <h3>Protein Hydrolysates &amp; Amino Acids</h3>
+            <span class="acc-badge">8 Products</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 25</span>
+              <h3 class="agri-name">Protein Hydrolysates 25% (Plant Source) &mdash; Liquid</h3>
+              <p class="agri-comp">Free amino acids 25% w/v, Total organic carbon 1.5%, pH 4&ndash;5</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 ml/l</span>
+                <span class="agri-chip">Green gram</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 19.9</span>
+              <h3 class="agri-name">Protein Hydrolysate 19.9% (Plant Source) &mdash; Liquid</h3>
+              <p class="agri-comp">Free amino acids 19.9% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 10</span>
+              <h3 class="agri-name">Protein Hydrolysate (Amino Acids 10%) &mdash; Liquid</h3>
+              <p class="agri-comp">Free amino acids 10% v/v, pH 3.5&ndash;5.63</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 5</span>
+              <h3 class="agri-name">Protein Hydrolysate (Amino Acids 5%) &mdash; Powder</h3>
+              <p class="agri-comp">Free amino acids 5% w/v (includes Glycine, Glutamic acid, Alanine, Serine, etc.)</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1.25 g/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 16.9L</span>
+              <h3 class="agri-name">Protein Hydrolysates 16.9% (Plant Source) &mdash; Liquid</h3>
+              <p class="agri-comp">Free amino acids 16.9% w/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3.5 ml/l</span>
+                <span class="agri-chip">Drip: 1.5&ndash;3.5 ml/l</span>
+                <span class="agri-chip">Green gram</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 10L</span>
+              <h3 class="agri-name">Protein Hydrolysate (Amino Acids 10%) &mdash; Liquid</h3>
+              <p class="agri-comp">Free amino acids 10%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3 ml/l</span>
+                <span class="agri-chip">Chilli</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 1.5G</span>
+              <h3 class="agri-name">Protein Hydrolysate 1.5% (Plant Source) &mdash; Granules</h3>
+              <p class="agri-comp">Free amino acids 1.5% w/w</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Soil: two applications at 400 kg/ha</span>
+                <span class="agri-chip">Tomato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">PROTO 5F</span>
+              <h3 class="agri-name">Protein Hydrolysate (Amino Acids 5%) &mdash; Powder</h3>
+              <p class="agri-comp">Free amino acids 5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2.5 g/l</span>
+                <span class="agri-chip">Chilli</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-    </div><!-- /product-grid -->
-  </div>
+      <!-- AGRI CAT 7: Seaweed Extracts -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-water" aria-hidden="true"></i>
+            <h3>Seaweed Extracts</h3>
+            <span class="acc-badge">2 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">AN-15</span>
+              <h3 class="agri-name">Ascophyllum nodosum 15% (Liquid)</h3>
+              <p class="agri-comp">Algenic acid 1.5%, Organic matter 20%, Total dissolved solids 60</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3 ml/l</span>
+                <span class="agri-chip">Paddy &amp; Other Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">AN-7</span>
+              <h3 class="agri-name">Ascophyllum nodosum 7% (Liquid)</h3>
+              <p class="agri-comp">Total dissolved solids 7%, Organic carbon 6%, Organic matter 10.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 5&ndash;8 ml/l</span>
+                <span class="agri-chip">Drip: 3 applications at 715 ml/ha</span>
+                <span class="agri-chip">Tomato</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGRI CAT 8: Botanical Extracts -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+            <h3>Botanical Extracts</h3>
+            <span class="acc-badge">3 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">Earth+</span>
+              <h3 class="agri-name">Adhatoda vasica (Powder)</h3>
+              <p class="agri-comp">Adhatoda vasica (Malabar nut) 5 ppm</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 1 g/l</span>
+                <span class="agri-chip">Soil: 0.9 kg/l</span>
+                <span class="agri-chip">Crops, Pulses &amp; Potato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">SPIRULINA 10</span>
+              <h3 class="agri-name">Spirulina 10% (Liquid)</h3>
+              <p class="agri-comp">Spirulina (as %) 0, Specific gravity 1.08&ndash;1.1, pH 9&ndash;10</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 3 ml/l at 730 l/ha</span>
+                <span class="agri-chip">Chilli and Tomato</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">DECON ADHATODA</span>
+              <h3 class="agri-name">Adhatoda Vasica Extract-2% (Liquid)</h3>
+              <p class="agri-comp">Adhatoda vasica 100, Organic carbon 0.9&ndash;1.1, Specific gravity 1.001&ndash;1.003, pH 7.0&ndash;8.5</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: Three applications at 20 l/ha</span>
+                <span class="agri-chip">Chilli and Tomato</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGRI CAT 9: Micronutrient Mixture Grades -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-flask-vial" aria-hidden="true"></i>
+            <h3>Micronutrient Mixture Grades &mdash; Karnataka State Notified</h3>
+            <span class="acc-badge">3 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">MICMIXB-I</span>
+              <h3 class="agri-name">Mixed Micronutrients Karnataka Grade-I</h3>
+              <p class="agri-comp">Zn-3.0%, Fe-2.0%, Mn-1.0%, B-0.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2 g/l</span>
+                <span class="agri-chip">Drip: 10 kg/acre</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">MICMIXB-II</span>
+              <h3 class="agri-name">Mixed Micronutrients Karnataka Grade-II</h3>
+              <p class="agri-comp">Zn-3.0%, Fe-0.5%, Mn-0.2%, B-0.5%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2 g/l</span>
+                <span class="agri-chip">Drip: 10 kg/acre</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">MICMIXB-IV</span>
+              <h3 class="agri-name">Mixed Micronutrients Karnataka Grade-IV</h3>
+              <p class="agri-comp">Zn-3.0%, Fe-0.5%, Mn-2.0%, B-0.30%</p>
+              <div class="agri-meta">
+                <span class="agri-chip">Foliar: 2 g/l</span>
+                <span class="agri-chip">Drip: 10 kg/acre</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGRI CAT 10: Adjuvants -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-spray-can" aria-hidden="true"></i>
+            <h3>Adjuvants</h3>
+            <span class="acc-badge">4 Products</span>
+          </div>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="acc-body">
+          <div class="agri-grid">
+            <div class="agri-card">
+              <span class="agri-brand">Wetrim</span>
+              <h3 class="agri-name">All Purpose Spray Adjuvant</h3>
+              <p class="agri-comp">Non-ionic &amp; Nonionic surfactants 80&ndash;85% v/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">30&ndash;50 ml per 200 litres</span>
+                <span class="agri-chip">Insecticides, Fungicides, Herbicides</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">Oncoff</span>
+              <h3 class="agri-name">Spray Adjuvant (Chilli Thrips, Cotton Sucking Pests &amp; Paddy BPH)</h3>
+              <p class="agri-comp">Non-ionic &amp; Nonionic surfactants</p>
+              <div class="agri-meta">
+                <span class="agri-chip">3&ndash;5 ml/l</span>
+                <span class="agri-chip">Chilli, Cotton, Paddy</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">ACCOM</span>
+              <h3 class="agri-name">Spray Adjuvant (Pesticide/Bactericide/Virucide/Fungicide)</h3>
+              <p class="agri-comp">Non-ionic &amp; Nonionic surfactants 20%&ndash;5% v/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">3&ndash;5 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+            <div class="agri-card">
+              <span class="agri-brand">SprayMax</span>
+              <h3 class="agri-name">Penetrant-Activator Adjuvant</h3>
+              <p class="agri-comp">Non-ionic &amp; Nonionic surfactants 80&ndash;85% v/v</p>
+              <div class="agri-meta">
+                <span class="agri-chip">2 ml/l</span>
+                <span class="agri-chip">All Crops</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.acc-wrap -->
+  </div><!-- /.container -->
 </section>
 
 
 <!-- ============================================================
-     SCIENTIFIC DIVISION
+     DIVISION 3: SCIENTIFIC
 ============================================================ -->
-<section class="catalog-section" id="cat-scientific" data-division="scientific" aria-label="Scientific Products">
+<section class="division-section" id="div-scientific">
   <div class="container">
 
-    <div class="catalog-section-header reveal">
-      <div class="catalog-section-icon" aria-hidden="true">
-        <i class="fa-solid fa-microscope"></i>
-      </div>
+    <div class="division-header">
+      <div class="division-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
       <div>
-        <span class="section-label">Division 03</span>
-        <h2>Scientific</h2>
-        <p>High-quality laboratory instruments, precision medical devices, labwares, consumables, and innovative biomedical waste management systems for clinical and research environments.</p>
+        <span class="division-label">Division 03</span>
+        <h2>Scientific Division</h2>
+        <p>Laboratory instruments, medical devices, consumables, biomedical waste solutions, and equipment services for research, clinical, and industrial laboratories.</p>
       </div>
     </div>
 
-    <div class="product-grid reveal-stagger">
-
-      <!-- Lab Equipment -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-microscope"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Lab Equipment</span>
-          <h3>Laboratory Instruments</h3>
-          <p>Precision analytical and general lab instruments including centrifuges, spectrophotometers, PCR machines, gel documentation systems, and incubators for research and clinical labs.</p>
-          <div class="product-tags">
-            <span class="product-tag">Analytical</span>
-            <span class="product-tag">PCR Systems</span>
-            <span class="product-tag">Spectroscopy</span>
+    <div class="acc-wrap">
+      <div class="acc-item open">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <i class="fa-solid fa-flask" aria-hidden="true"></i>
+            <h3>Scientific Products &amp; Services</h3>
+            <span class="acc-badge">6 Categories</span>
           </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
+          <i class="fa-solid fa-chevron-down acc-arrow" aria-hidden="true"></i>
         </div>
-      </div>
+        <div class="acc-body">
+          <div class="sci-grid">
 
-      <!-- Medical Instruments -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-stethoscope"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Medical Devices</span>
-          <h3>Medical Instruments &amp; Devices</h3>
-          <p>Diagnostic and monitoring medical instruments for clinical use — including point-of-care analysers, patient monitoring accessories, and surgical support tools meeting BIS and CE standards.</p>
-          <div class="product-tags">
-            <span class="product-tag">BIS Certified</span>
-            <span class="product-tag">Point-of-Care</span>
-            <span class="product-tag">CE Marked</span>
-          </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
-        </div>
-      </div>
+            <!-- Card 1: Lab Instruments -->
+            <div class="sci-card">
+              <div class="sci-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+              <h3>Laboratory Instruments</h3>
+              <p>Centrifuges, real-time PCR systems, spectrophotometers, gel documentation systems, and related analytical equipment for research and clinical labs.</p>
+              <div class="sci-tags">
+                <span class="sci-tag">Centrifuges</span>
+                <span class="sci-tag">PCR Systems</span>
+                <span class="sci-tag">Spectrophotometers</span>
+                <span class="sci-tag">Gel Doc</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enquire for Full Catalog
+              </a>
+            </div>
 
-      <!-- Labwares -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-flask-vial"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Labwares &amp; Consumables</span>
-          <h3>Labwares &amp; Consumables</h3>
-          <p>Complete range of plastic and glass labwares — microtubes, PCR plates, pipettes, filter tips, cell culture flasks, petri dishes, and more for daily lab operations and diagnostic workflows.</p>
-          <div class="product-tags">
-            <span class="product-tag">Sterile</span>
-            <span class="product-tag">DNase/RNase Free</span>
-            <span class="product-tag">Cell Culture</span>
-          </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
-        </div>
-      </div>
+            <!-- Card 2: Medical Devices -->
+            <div class="sci-card">
+              <div class="sci-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+              <h3>Medical Devices &amp; Instruments</h3>
+              <p>Point-of-care analysers, patient monitoring systems, and clinical diagnostic devices. All products are BIS/CE certified and compliant with applicable standards.</p>
+              <div class="sci-tags">
+                <span class="sci-tag">POC Analysers</span>
+                <span class="sci-tag">Patient Monitoring</span>
+                <span class="sci-tag">BIS/CE Certified</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enquire Now
+              </a>
+            </div>
 
-      <!-- Robotic Waste System -->
-      <div class="product-card" style="border-top:3px solid var(--brand-teal);">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-robot"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category" style="color:var(--brand-teal);">Patented Innovation</span>
-          <h3>Autonomous Robotic Biomedical Waste Classifier</h3>
-          <p>India's first AI-powered autonomous robotic system for classification and segregation of biomedical waste at the point of generation — reducing manual handling, contamination risk, and disposal cost.</p>
-          <div class="product-tags">
-            <span class="product-tag">Patented</span>
-            <span class="product-tag">AI Vision</span>
-            <span class="product-tag">BMW Rules 2016</span>
-            <span class="product-tag">IoT Enabled</span>
-          </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
-        </div>
-      </div>
+            <!-- Card 3: Labwares & Consumables -->
+            <div class="sci-card">
+              <div class="sci-icon"><i class="fa-solid fa-vial" aria-hidden="true"></i></div>
+              <h3>Labwares &amp; Consumables</h3>
+              <p>Microtubes, PCR plates, pipettes, filter tips, cell culture flasks — sterile, DNase-free, and RNase-free options. Suitable for molecular biology and cell culture applications.</p>
+              <div class="sci-tags">
+                <span class="sci-tag">Microtubes</span>
+                <span class="sci-tag">PCR Plates</span>
+                <span class="sci-tag">Filter Tips</span>
+                <span class="sci-tag">Cell Culture</span>
+                <span class="sci-tag">DNase/RNase Free</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enquire Now
+              </a>
+            </div>
 
-      <!-- Waste Management Bags -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-trash-can"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Waste Management</span>
-          <h3>Biomedical Waste Disposal Products</h3>
-          <p>Colour-coded biomedical waste bags, sharps containers, puncture-resistant bins, and autoclave pouches compliant with BMW Management Rules 2016 for hospitals, clinics, and labs.</p>
-          <div class="product-tags">
-            <span class="product-tag">BMW 2016</span>
-            <span class="product-tag">Colour Coded</span>
-            <span class="product-tag">Autoclavable</span>
-          </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
-        </div>
-      </div>
+            <!-- Card 4: Autonomous Robotic Biomedical Waste Classifier -->
+            <div class="sci-card" style="border-color:rgba(83,207,207,0.4);">
+              <div class="sci-icon" style="background:rgba(83,207,207,0.18);border-color:rgba(83,207,207,0.5);"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+              <h3>Autonomous Robotic Biomedical Waste Classifier</h3>
+              <p>AI-powered autonomous waste classification system for biomedical facilities. Patented technology ensuring accurate, hands-free segregation of biomedical waste streams.</p>
+              <div class="sci-tags">
+                <span class="sci-tag" style="background:rgba(83,207,207,0.12);border-color:rgba(83,207,207,0.3);">Patented</span>
+                <span class="sci-tag">Patent No. 202511077832</span>
+                <span class="sci-tag">AI-Powered</span>
+                <span class="sci-tag">Autonomous</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Request Demo
+              </a>
+            </div>
 
-      <!-- Services -->
-      <div class="product-card">
-        <div class="product-img" aria-hidden="true">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-        </div>
-        <div class="product-body">
-          <span class="product-category">Services</span>
-          <h3>Equipment Calibration &amp; AMC Services</h3>
-          <p>Annual Maintenance Contracts (AMC), calibration, installation, and repair services for laboratory and medical equipment — ensuring regulatory compliance and uninterrupted operations.</p>
-          <div class="product-tags">
-            <span class="product-tag">AMC</span>
-            <span class="product-tag">NABL Calibration</span>
-            <span class="product-tag">On-Site</span>
-          </div>
-          <a href="index.html#contact" class="product-cta">
-            <i class="fa-solid fa-paper-plane"></i> Enquire Now
-          </a>
-        </div>
-      </div>
+            <!-- Card 5: BMW Disposal Products -->
+            <div class="sci-card">
+              <div class="sci-icon"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></div>
+              <h3>Biomedical Waste Disposal Products</h3>
+              <p>Colour-coded bags, sharps containers, and bio-hazard waste management products compliant with Biomedical Waste Management Rules 2016.</p>
+              <div class="sci-tags">
+                <span class="sci-tag">Colour-coded Bags</span>
+                <span class="sci-tag">Sharps Containers</span>
+                <span class="sci-tag">BMW Rules 2016</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enquire Now
+              </a>
+            </div>
 
-    </div><!-- /product-grid -->
-  </div>
+            <!-- Card 6: Equipment Calibration & AMC -->
+            <div class="sci-card">
+              <div class="sci-icon"><i class="fa-solid fa-wrench" aria-hidden="true"></i></div>
+              <h3>Equipment Calibration &amp; AMC Services</h3>
+              <p>NABL-accredited calibration services, on-site maintenance, and Annual Maintenance Contracts (AMC) for laboratory and medical equipment.</p>
+              <div class="sci-tags">
+                <span class="sci-tag">NABL Calibration</span>
+                <span class="sci-tag">On-site Service</span>
+                <span class="sci-tag">Annual AMC</span>
+              </div>
+              <a href="index.html#contact" style="display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:#53CFCF;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Get a Quote
+              </a>
+            </div>
+
+          </div><!-- /.sci-grid -->
+        </div><!-- /.acc-body -->
+      </div><!-- /.acc-item -->
+    </div><!-- /.acc-wrap -->
+
+  </div><!-- /.container -->
 </section>
+
+</main><!-- /#catalog-sections -->
 
 
 <!-- ============================================================
-     CATALOG CTA BANNER
+     CTA BANNER
 ============================================================ -->
-<section style="background:var(--near-black);padding:var(--sp-7) 0;" aria-label="Contact call to action">
-  <div class="container text-center">
-    <span class="section-label" style="color:var(--brand-teal);">Custom Requirements</span>
-    <h2 class="section-title" style="color:var(--text-on-dark);margin-bottom:var(--sp-2);">Can't Find What You Need?</h2>
-    <p class="section-desc" style="color:var(--mid-grey);margin:0 auto var(--sp-5);">
-      Our team works with researchers, hospitals, and agribusinesses to develop custom solutions. Reach out to discuss your specific requirements.
-    </p>
-    <div style="display:flex;gap:var(--sp-2);justify-content:center;flex-wrap:wrap;">
-      <a href="index.html#contact" class="btn btn-primary">
-        <i class="fa-solid fa-paper-plane"></i> Contact Our Team
+<section class="cta-banner" aria-label="Request Full Catalog">
+  <div class="container" style="text-align:center;">
+    <span style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#53CFCF;margin-bottom:12px;">Get In Touch</span>
+    <h2>Request Full Catalog</h2>
+    <p>Our complete product portfolio spans 400+ SKUs across Life Sciences, Agri, and Scientific divisions.<br>Contact us for detailed specifications, pricing, and availability.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="index.html#contact" class="btn-cta">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> REQUEST CATALOG PDF
       </a>
-      <a href="tel:+918902052927" class="btn btn-outline">
-        <i class="fa-solid fa-phone"></i> +91 89020 52927
+      <a href="mailto:info@indibiotek.com" class="btn-cta" style="background:#1A4E4E;">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i> EMAIL US DIRECTLY
       </a>
     </div>
+    <p style="margin-top:24px;font-size:0.875rem;">
+      <a href="tel:+918902052927" style="color:#53CFCF;text-decoration:none;">
+        <i class="fa-solid fa-phone" aria-hidden="true" style="margin-right:6px;"></i>+91 89020 52927
+      </a>
+      &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+      <a href="mailto:info@indibiotek.com" style="color:#53CFCF;text-decoration:none;">info@indibiotek.com</a>
+    </p>
   </div>
 </section>
 
@@ -587,8 +1833,9 @@
   <div class="container">
     <div class="footer-grid">
 
+      <!-- Brand -->
       <div class="footer-brand">
-        <a href="index.html" class="nav-logo" aria-label="Indibiotek — Home">
+        <a href="index.html" class="nav-logo" aria-label="Indibiotek &mdash; Home">
           <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <circle cx="20" cy="20" r="18.5" stroke="#53CFCF" stroke-width="1.2" stroke-dasharray="3.5 2.5" opacity="0.7"/>
             <ellipse cx="20" cy="20" rx="5.5" ry="13" stroke="#53CFCF" stroke-width="1.5"/>
@@ -601,8 +1848,8 @@
           </svg>
           <span>Indi<span class="logo-bio">bio</span>tek</span>
         </a>
-        <p class="footer-tagline">From Microbes to Markets —<br/>We Deliver Biotech Excellence</p>
-        <p>Advancing life sciences for a healthier, more sustainable tomorrow — from Kolkata to the world.</p>
+        <p class="footer-tagline">Indigenous Innovation,<br/>Global Standard Solutions</p>
+        <p>Advancing life sciences for a healthier, more sustainable tomorrow &mdash; from Kolkata to the world.</p>
         <div class="social-links">
           <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="#" class="social-link" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
@@ -611,27 +1858,31 @@
         </div>
       </div>
 
+      <!-- Quick Links -->
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="index.html#about"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
           <li><a href="index.html#divisions"><i class="fa-solid fa-chevron-right"></i>Our Divisions</a></li>
           <li><a href="index.html#rnd"><i class="fa-solid fa-chevron-right"></i>R&amp;D Facilities</a></li>
-          <li><a href="catalog.html"><i class="fa-solid fa-chevron-right"></i>Product Catalog</a></li>
           <li><a href="index.html#team"><i class="fa-solid fa-chevron-right"></i>Leadership</a></li>
           <li><a href="index.html#contact"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
         </ul>
       </div>
 
+      <!-- Divisions -->
       <div class="footer-col">
-        <h4>Catalog</h4>
+        <h4>Divisions</h4>
         <ul>
-          <li><a href="#cat-lifesciences"><i class="fa-solid fa-dna"></i>Life Sciences</a></li>
-          <li><a href="#cat-agri"><i class="fa-solid fa-seedling"></i>Agri</a></li>
-          <li><a href="#cat-scientific"><i class="fa-solid fa-microscope"></i>Scientific</a></li>
+          <li><a href="catalog.html"><i class="fa-solid fa-dna"></i>Life Sciences</a></li>
+          <li><a href="catalog.html"><i class="fa-solid fa-seedling"></i>Agri &mdash; In Cropex</a></li>
+          <li><a href="catalog.html"><i class="fa-solid fa-microscope"></i>Scientific</a></li>
+          <li><a href="index.html#rnd"><i class="fa-solid fa-flask"></i>Drug Discovery</a></li>
+          <li><a href="index.html#rnd"><i class="fa-solid fa-lightbulb"></i>Innovation Hub</a></li>
         </ul>
       </div>
 
+      <!-- Contact -->
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
@@ -664,6 +1915,7 @@
 
     </div>
 
+    <!-- Bottom bar -->
     <div class="footer-bottom">
       <p>&copy; 2025 Indibiotek Private Limited. All rights reserved. &nbsp;|&nbsp; DPIIT &bull; MSME &bull; Make in India</p>
       <p>Made with <i class="fa-solid fa-heart heart" aria-hidden="true" style="color:#e25555;"></i> for a healthier tomorrow</p>
@@ -671,30 +1923,63 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
 <script>
-/* ── Catalog filter ─────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const sections   = document.querySelectorAll('.catalog-section[data-division]');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      sections.forEach(sec => {
-        if (filter === 'all' || sec.dataset.division === filter) {
-          sec.style.display = '';
-        } else {
-          sec.style.display = 'none';
-        }
-      });
+// Division tabs
+document.querySelectorAll('.cat-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.cat-tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
     });
+    document.querySelectorAll('.division-section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    const target = document.getElementById(tab.dataset.target);
+    if (target) {
+      target.classList.add('active');
+      const tabBar = document.querySelector('.cat-tabs');
+      if (tabBar) {
+        window.scrollTo({ top: tabBar.offsetTop - 140, behavior: 'smooth' });
+      }
+    }
   });
 });
+
+// Accordion
+document.querySelectorAll('.acc-header').forEach(hdr => {
+  hdr.addEventListener('click', () => {
+    const item = hdr.closest('.acc-item');
+    item.classList.toggle('open');
+  });
+});
+
+// Hamburger nav
+const hamburger = document.querySelector('.nav-hamburger');
+const drawer = document.querySelector('.nav-drawer');
+if (hamburger && drawer) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    const expanded = hamburger.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', expanded.toString());
+  });
+}
+
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }, { passive: true });
+}
 </script>
 
 </body>
