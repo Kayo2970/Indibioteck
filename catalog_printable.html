@@ -2,327 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Indibiotek Product Catalog — Life Sciences reagents, kits, antibodies, buffers, and more." />
-  <meta name="theme-color" content="#161616" />
-  <title>Product Catalog — Indibiotek Private Limited</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <title>Indibiotek - Complete Printed Catalog</title>
   <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='17' stroke='%2353CFCF' stroke-width='2' fill='none'/%3E%3Cellipse cx='18' cy='18' rx='5' ry='12' stroke='%2353CFCF' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='18' cy='18' rx='12' ry='5' stroke='%2340A1A1' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='18' cy='18' r='3' fill='%2353CFCF'/%3E%3C/svg%3E" />
-
   <style>
-    /* ── Catalog-specific styles ── */
-    .catalog-hero {
-      background: #161616;
-      padding: 160px 0 60px;
-      text-align: center;
-      border-bottom: 1px solid rgba(83,207,207,0.15);
+    :root {
+      --brand-teal: #53cfcf;
+      --text-main: #222;
     }
-    .catalog-hero h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      color: #fff;
-      margin-bottom: 12px;
+    body {
+      font-family: 'Source Sans Pro', sans-serif;
+      color: var(--text-main);
+      background: white;
+      margin: 0;
+      padding: 0;
     }
-    .catalog-hero h1 span { color: var(--brand-teal); }
-    .catalog-hero p {
-      color: #aaa;
-      font-size: 1.05rem;
-      max-width: 560px;
-      margin: 0 auto 24px;
+    
+    /* A4 Print layout specifics */
+    @page {
+      size: A4 portrait;
+      margin: 15mm;
     }
-    .catalog-stats {
+    
+    .cover-page {
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-    .catalog-stat {
+      align-items: center;
+      height: 100vh;
       text-align: center;
+      page-break-after: always;
     }
-    .catalog-stat .num {
-      display: block;
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      font-weight: 700;
+    .cover-page h1 { font-family: 'Cabin', sans-serif; font-size: 48pt; margin-bottom: 20px; color: #111; }
+    .cover-page h2 { font-weight: 400; font-size: 24pt; color: #555; margin-bottom: 60px; }
+    .cover-company { font-weight: 700; font-size: 16pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-teal); }
+    
+    .category-section {
+      page-break-before: auto;
+      page-break-after: auto;
+      margin-bottom: 40mm;
+    }
+    .category-title {
+      font-family: 'Cabin', sans-serif;
+      font-size: 20pt;
       color: var(--brand-teal);
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 10mm;
+      margin-bottom: 5mm;
     }
-    .catalog-stat .lbl {
-      font-size: 0.82rem;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* Division tabs */
-    .div-tabs {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: #0e0e0e;
-      border-bottom: 2px solid rgba(83,207,207,0.2);
-      display: flex;
-      justify-content: center;
-      gap: 0;
-    }
-    .div-tab {
-      padding: 18px 36px;
-      font-family: var(--font-heading);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #888;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .div-tab:hover { color: #ddd; }
-    .div-tab.active {
-      color: var(--brand-teal);
-      border-bottom-color: var(--brand-teal);
-    }
-
-    /* Division panels */
-    .div-panel { display: none; }
-    .div-panel.active { display: block; }
-
-    /* Search bar */
-    .catalog-search-wrap {
-      padding: 32px 0 16px;
-      background: #f9f9f9;
-    }
-    .catalog-search {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      max-width: 560px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 10px 16px;
-    }
-    .catalog-search i { color: #aaa; }
-    .catalog-search input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: #333;
-      background: none;
-    }
-
-    /* Accordion */
-    .acc-list {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-    .acc-item {
-      border: 1px solid #e4e4e4;
-      margin-bottom: 8px;
-      background: #fff;
-    }
-    .acc-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 18px 20px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.15s;
-    }
-    .acc-header:hover { background: #f7fffe; }
-    .acc-header[aria-expanded="true"] { background: #f0fffe; }
-    .acc-title {
-      flex: 1;
-      font-family: var(--font-heading);
-      font-size: 1rem;
-      font-weight: 700;
-      color: #111;
-    }
-    .acc-badge {
-      font-size: 0.75rem;
-      background: rgba(83,207,207,0.12);
-      color: var(--brand-teal-dark, #2fa8a8);
-      padding: 3px 10px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .acc-chevron {
-      color: #aaa;
-      flex-shrink: 0;
-      transition: transform 0.25s;
-    }
-    .acc-header[aria-expanded="true"] .acc-chevron {
-      transform: rotate(180deg);
-      color: var(--brand-teal);
-    }
-    .acc-body {
-      padding: 0 20px 20px;
-      animation: fadeDown 0.2s ease;
-    }
-    @keyframes fadeDown {
-      from { opacity:0; transform:translateY(-8px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    /* Product table */
-    .table-wrap {
-      overflow-x: auto;
-    }
-    .product-table {
+    table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.875rem;
+      font-size: 10pt;
+      page-break-inside: auto;
     }
-    .product-table th {
-      background: #161616;
-      color: #fff;
-      font-family: var(--font-heading);
-      font-size: 0.78rem;
-      letter-spacing: 0.07em;
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    th {
+      font-family: 'Cabin', sans-serif;
       text-transform: uppercase;
-      padding: 10px 14px;
+      font-size: 9pt;
+      color: white;
+      background: #111;
+      padding: 6px 10px;
       text-align: left;
     }
-    .product-table td {
-      padding: 9px 14px;
-      border-bottom: 1px solid #f0f0f0;
-      color: #333;
+    td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #ddd;
     }
-    .product-table td:first-child {
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: #777;
-      white-space: nowrap;
+    td:first-child { font-family: monospace; color: #666; width: 150px; }
+    
+    .pdf-image-page {
+      page-break-before: always;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Make sure each image fills exactly 1 print page if constrained by css */
+      margin: -15mm; /* Negate the @page margin so the image goes full bleed if needed */
     }
-    .product-table td:last-child {
-      white-space: nowrap;
-      color: #555;
+    .pdf-image-page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-    .product-table tbody tr:hover { background: #fafffe; }
-    .product-table tbody tr:last-child td { border-bottom: none; }
-
-    /* Agri / Scientific placeholder */
-    .coming-soon {
-      text-align: center;
-      padding: 80px 20px;
-      color: #888;
-    }
-    .coming-soon h3 {
-      font-family: var(--font-heading);
-      font-size: 1.4rem;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .div-tab { padding: 14px 18px; font-size: 0.78rem; }
-      .acc-title { font-size: 0.9rem; }
+    
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .pdf-image-page {
+        margin: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="navbar" aria-label="Main navigation">
-  <div class="container">
-    <a href="index.html" class="nav-logo" aria-label="Indibiotek — Home">
-      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="20" cy="20" r="18.5" stroke="#53CFCF" stroke-width="1.2" stroke-dasharray="3.5 2.5" opacity="0.7"/>
-        <ellipse cx="20" cy="20" rx="5.5" ry="13" stroke="#53CFCF" stroke-width="1.5"/>
-        <ellipse cx="20" cy="20" rx="13" ry="5.5" stroke="#40A1A1" stroke-width="1.5"/>
-        <circle cx="20" cy="7"  r="2.2" fill="#53CFCF"/>
-        <circle cx="20" cy="33" r="2.2" fill="#53CFCF"/>
-        <circle cx="7"  cy="20" r="2.2" fill="#40A1A1"/>
-        <circle cx="33" cy="20" r="2.2" fill="#40A1A1"/>
-        <circle cx="20" cy="20" r="3.8" fill="#53CFCF"/>
-        <circle cx="20" cy="20" r="5.5" stroke="#53CFCF" stroke-width="0.6" opacity="0.3"/>
-      </svg>
-      <span>Indi<span class="logo-bio">bio</span>tek</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#divisions">Divisions</a></li>
-      <li><a href="index.html#rnd">R&amp;D</a></li>
-      <li><a href="catalog.html" class="active-link">Catalog</a></li>
-      <li><a href="index.html#team">Team</a></li>
-      <li><a href="index.html#locations">Locations</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <a href="index.html#contact" class="btn btn-primary nav-cta">Get In Touch</a>
-    <button class="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="nav-drawer" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#divisions">Divisions</a>
-    <a href="index.html#rnd">R&amp;D</a>
-    <a href="catalog.html">Catalog</a>
-    <a href="index.html#team">Team</a>
-    <a href="index.html#locations">Locations</a>
-    <a href="index.html#contact">Contact</a>
-    <a href="index.html#contact" class="btn btn-primary" style="text-align:center;margin-top:10px;">Get In Touch</a>
-  </nav>
-</nav>
-
-<!-- HERO -->
-<section class="catalog-hero">
-  <div class="container">
-    <h1>Product <span>Catalog</span></h1>
-    <p>Comprehensive range of life sciences reagents, kits, antibodies, buffers, and molecular biology tools.</p>
-    <div class="catalog-stats">
-      <div class="catalog-stat"><span class="num">2,022</span><span class="lbl">Products</span></div>
-      <div class="catalog-stat"><span class="num">15</span><span class="lbl">Categories</span></div>
-      <div class="catalog-stat"><span class="num">3</span><span class="lbl">Divisions</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- NEW FUNCTIONAL TABS -->
-<div class="div-tabs" role="tablist" aria-label="Functional Product Categories" style="flex-wrap:wrap;">
-  <button class="div-tab active" role="tab" aria-selected="true"  aria-controls="panel-diag" id="tab-diag">Diagnostics &amp; Devices</button>
-  <button class="div-tab"        role="tab" aria-selected="false" aria-controls="panel-pcr"  id="tab-pcr">Extraction &amp; PCR</button>
-  <button class="div-tab"        role="tab" aria-selected="false" aria-controls="panel-cell" id="tab-cell">Proteins &amp; Cell Culture</button>
-  <button class="div-tab"        role="tab" aria-selected="false" aria-controls="panel-reag" id="tab-reag">Chemicals &amp; Buffers</button>
-  <button class="div-tab"        role="tab" aria-selected="false" aria-controls="panel-agri" id="tab-agri">Agricultural Solutions</button>
-  <button class="div-tab"        role="tab" aria-selected="false" aria-controls="panel-sci"  id="tab-sci">Hardware &amp; Services</button>
+<div class="cover-page">
+  <div class="cover-company">Indibiotek Private Limited</div>
+  <h1>Product Catalog</h1>
+  <h2>Life Sciences, Agri & Scientific Solutions</h2>
+  <p style="margin-top:auto; font-size:12pt; color:#888;">Complete Reference Document</p>
 </div>
 
-<!-- SEARCH -->
-<div class="catalog-search-wrap">
-  <div class="container">
-    <div class="catalog-search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="search" id="cat-search" placeholder="Search by product name or keyword…" aria-label="Search products" />
-    </div>
-  </div>
-</div>
-<div class="div-panel active" id="panel-diag" role="tabpanel" aria-labelledby="tab-diag">  <div class="acc-list"><div class="acc-item" id="acc-2">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-2-body">
-            <span class="acc-title">Infectious Disease Individual Markers</span>
-            <span class="acc-badge">310 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-2-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+<div class="category-section">
+  <h2 class="category-title">Infectious Disease Individual Markers</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-HMBIDIM-0001</td><td>BKV Viral Load Kit</td><td>25 T</td></tr>
@@ -636,18 +426,14 @@
 <tr><td>IBLS-HCC-0021</td><td>Specific Protein Control As Per Request</td><td></td></tr>
 <tr><td>IBLS-HCC-0022</td><td>Total Bile Acid Control As Per Request</td><td></td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-3">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-3-body">
-            <span class="acc-title">Aquatic - Real Time PCR</span>
-            <span class="acc-badge">297 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-3-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Aquatic - Real Time PCR</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-ARTP-0001</td><td>White Spot Syndrome Virus (WSSV) Detection Kit</td><td>25 T</td></tr>
@@ -948,19 +734,14 @@
 <tr><td>IBLS-SRTP-0007</td><td>Chicken Detection Kit</td><td>25 T</td></tr>
 <tr><td>IBLS-SRTP-0008</td><td>A1/A2 Detection Kit</td><td>25 T</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div>  </div></div>
-<div class="div-panel" id="panel-pcr" role="tabpanel" aria-labelledby="tab-pcr">  <div class="acc-list"><div class="acc-item" id="acc-1">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-1-body">
-            <span class="acc-title">Purification Kit</span>
-            <span class="acc-badge">99 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-1-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Purification Kit</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-PK-0001</td><td>Pure Blood/Serum/Plasma DNA Isolation Kit</td><td>50 T</td></tr>
@@ -1063,18 +844,14 @@
 <tr><td>IBLS-PK-0098</td><td>Magnetic stand (96 well plate)</td><td>1 no</td></tr>
 <tr><td>IBLS-PK-0099</td><td>Spin column with collection tube</td><td>1 no</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-4">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-4-body">
-            <span class="acc-title">PCR Enzymes &amp; Reagents</span>
-            <span class="acc-badge">161 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-4-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">PCR Enzymes &amp; Reagents</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-PCRER-0001</td><td>Taq DNA Polymerase -5U/µl</td><td>1000 U</td></tr>
@@ -1239,18 +1016,14 @@
 <tr><td>IBLS-PCRER-0160</td><td>Nuclease Free Water</td><td>10 ml</td></tr>
 <tr><td>IBLS-PCRER-0161</td><td>DEPC Treated Water</td><td>100 ml</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-8">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-8-body">
-            <span class="acc-title">Molecular Master Mixes</span>
-            <span class="acc-badge">47 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-8-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Molecular Master Mixes</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-MMM-0001</td><td>2X Taq DNA PCR Master Mix RED (1.25 ml)</td><td>50 T</td></tr>
@@ -1301,18 +1074,14 @@
 <tr><td>IBLS-MMM-0046</td><td>Multi-Purpose LAMP Master Mix (RNA)</td><td>100 T</td></tr>
 <tr><td>IBLS-MMM-0047</td><td>Multi-Purpose LAMP Master Mix (RNA)</td><td>500 T</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-11">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-11-body">
-            <span class="acc-title">Ladders &amp; Markers</span>
-            <span class="acc-badge">20 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-11-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Ladders &amp; Markers</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-LM-0001</td><td>50 bp DNA Ladder</td><td>50 wells</td></tr>
@@ -1336,19 +1105,14 @@
 <tr><td>IBLS-LM-0019</td><td>100 bp DNA Ladder (100-1,500 bp)</td><td>50 ug</td></tr>
 <tr><td>IBLS-LM-0020</td><td>Broad Range MW Protein Marker (Prestained: Tri Colour) [10-245 kDa]</td><td>500 ul</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div>  </div></div>
-<div class="div-panel" id="panel-cell" role="tabpanel" aria-labelledby="tab-cell">  <div class="acc-list"><div class="acc-item" id="acc-9">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-9-body">
-            <span class="acc-title">Cells &amp; Strains</span>
-            <span class="acc-badge">7 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-9-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Cells &amp; Strains</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-CS-0001</td><td>DH5 alpha Agar Stab</td><td>1 vial</td></tr>
@@ -1359,18 +1123,14 @@
 <tr><td>IBLS-CS-0006</td><td>Rosetta (DE3)-RIPLG Competent cells</td><td>10 Vials</td></tr>
 <tr><td>IBLS-CS-0007</td><td>BL21(DE3) pLysS Competent cells</td><td>10 Vials</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-10">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-10-body">
-            <span class="acc-title">Plasmids</span>
-            <span class="acc-badge">12 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-10-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Plasmids</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-PM-0001</td><td>pBR322 Plasmid DNA</td><td>5 µg</td></tr>
@@ -1386,18 +1146,14 @@
 <tr><td>IBLS-PM-0011</td><td>pET 32a(+) plasmid DNA</td><td>5 µg</td></tr>
 <tr><td>IBLS-PM-0012</td><td>pET17b (+) His plasmid</td><td>5 µg</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-14">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-14-body">
-            <span class="acc-title">Cell Culture Media &amp; Reagents</span>
-            <span class="acc-badge">13 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-14-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Cell Culture Media &amp; Reagents</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-CCMR-0001</td><td>DMEM -Dulbecco’s Modified Eagle Medium, High glucose, L-Glutamine.</td><td>500 ml</td></tr>
@@ -1414,18 +1170,14 @@
 <tr><td>IBLS-CCMR-0012</td><td>Phosphate Buffer Saline, 10X pH-7.4</td><td>500 ml</td></tr>
 <tr><td>IBLS-CCMR-0013</td><td>Dulbecco’s Phosphate Buffer Saline, 1X pH-7.4</td><td>500 ml</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-15">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-15-body">
-            <span class="acc-title">Antibodies &amp; Recombinant Proteins</span>
-            <span class="acc-badge">464 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-15-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Antibodies &amp; Recombinant Proteins</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-ARP-0001</td><td>Anti-Bovine IgG (whole molecule) antibody produced in Rabbit</td><td>1 ml</td></tr>
@@ -1893,19 +1645,14 @@
 <tr><td>IBLS-CS-0345</td><td>RF (high) Serum</td><td></td></tr>
 <tr><td>IBLS-CS-0346</td><td>B HCG Serum Serial No. Category Cat # Product CAS Make Qty 1 Chemical for Laboratory use in QC/Production of Hematology IBLS- CHRLQPH-0001 2-Mercaptopyridine-1-oxide Sodium salt Solution/Pyrithione Sodium salt L R Grade As per request 500 ml 2 IBLS- CHRLQPH-0002 2-Phenoxyethanol/Phenoxietanol, Ethylene glycol-monophenylether L R Grade As per request 2.5 ltr 3 IBLS- CHRLQPH-0003 Acidum Boricum Crystallisatum L R Grade Zytex 500 gm 4 IBLS- CHRLQPH-0004 Alkalase 2.5 L, Type DX AR Grade Dhishman 2.5L 5 IBLS- CHRLQPH-0005 Dodecyl-Trimethyl-Ammonium-Chloride solution AR Grade As per request 5 kg 6 IBLS- CHRLQPH-0006 Erioglaucine (C.I. 42090)/Acid Blue 9, Alphazurine FG AR Grade As per request 5 gm 7 IBLS- CHRLQPH-0007 Ethylenediaminetetraacetic acid disodium salt-2-hydroxy-EDTA-di-na-salt x2H20 L R Grade As per request 500 gm 8 IBLS- CHRLQPH-0008 GLYDANT/1,3-dihydroxymethyl-5,5-dimethylhydantoin AR Grade As per request 500ml 9 IBLS- CHRLQPH-0009 Hydrochloric acid min. 37% L R Grade As per request 2.5lt 10 IBLS- CHRLQPH-0010 IMIDAZOLE/Glyoxalinem, 1,3-Diaza-2,4-cyclopentadiene L R Grade As per request 5kg 11 IBLS- CHRLQPH-0011 Calcium Chloride dihydrate AR Grade As per request 500 g 12 IBLS- CHRLQPH-0012 Savinase 16 L, Type EX L R Grade As per request 2.5Lt 13 IBLS- CHRLQPH-0013 Sodium azide L R Grade As per request 500g 14 IBLS- CHRLQPH-0014 Sodium Chloride/Ph.Eur. AR Grade As per request 5 kg 15 IBLS- CHRLQPH-0015 Sodium-citrate puris L R Grade As per request 500 gm 16 IBLS- CHRLQPH-0016 Sodium hydroxide L R Grade As per request 500 gm 17 IBLS- CHRLQPH-0017 Sodium hypochlorite solution conc. Cl more than 10 % L R Grade As per request 1 lt 18 IBLS- CHRLQPH-0018 Sodium sulphate anhydrous AR Grade As per request 10 kg 19 IBLS- CHRLQPH-0019 Sodium-Tetraborate-deka-hydrate (Borax) AR Grade As per request 5kg 20 IBLS- CHRLQPH-0020 Tris (hydroxymethyl) aminomethan/TRIS buffer L R Grade As per request 500 gh 21 IBLS- CHRLQPH-0021 Triton X-405 Solution L R Grade Sigma Aldrich 1 Ltr 22 IBLS- CHRLQPH-0022 Triton X-705 Solution L R Grade LonZa 100 ml 23 Chemical for Laboratory use in QC/R&amp;amp;D IBLS- CHRLQR-0001 Casein Hammerstail Grade 9000-71-9 import 500 gm 24 IBLS- CHRLQR-0002 Di-Sodium Hydrogen Phosphate anhydrous GR 7558-79-4 As per request 500 gm 25 IBLS- CHRLQR-0003 Sodium di-Hydrogen Phosphate dihydrate GR 13472-35-0 As per request 500 g 26 IBLS- CHRLQR-0004 Boric Acid 10043-35-3 As per request 250 g 27 IBLS- CHRLQR-0005 Di-Sodium Tetraborate 1303-96-4 As per request 500 g 28 IBLS- CHRLQR-0006 Potassium Chloride 7447-40-7 As per request 500 g 29 IBLS- CHRLQR-0007 Potassium Di-hydrogen Phosphate 7778-77-0 As per request 500 g 30 IBLS- CHRLQR-0008 MOPS(3-marpholino propane sulfonic Acid) 1132-61-2 As per request 250 g 31 IBLS- CHRLQR-0009 Sodium Chloride 7647-14-5 As per request 2000 g 32 IBLS- CHRLQR-0010 Tri-Sodium Citrate 2-Hydrate (Purified) 4/3/6132 As per request 500 g 33 IBLS- CHRLQR-0011 D-(+)-Trehalose Dihydrate 6138-23-4 As per request 250 g 34 IBLS- CHRLQR-0012 D-(+)-Trehalose Dihydrate 6138-23-4 As per request As per request 250 gm 35 IBLS- CHRLQR-0013 Sucrose GR 57-50-1 As per request 250g 36 IBLS- CHRLQR-0014 Gold(lll) Chloride Trihydrate 16961-25-4 As per request 10g 37 IBLS- CHRLQR-0015 Potassium Carbonate 584-08-7 As per request 500g 38 IBLS- CHRLQR-0016 Hydrochloric Acid 7647-01-0 As per request 500ml 39 IBLS- CHRLQR-0017 Brij-35 9002-92-0 As per request 100g 40 IBLS- CHRLQR-0018 Sodium Azide 26628-22-8 As per request 100g 41 IBLS- CHRLQR-0019 Tween -20 9005-64-5 As per request 100ml 42 IBLS- CHRLQR-0020 Tween -20 9005-64-5 As per request 100ml 43 IBLS- CHRLQR-0021 Potassium lodide 7681-11-0 As per request 500g 44 IBLS- CHRLQR-0022 Potassium Dichromate 7789-50-9 As per request 500g 45 IBLS- CHRLQR-0023 EDTA, Disodium Salt 6381-92-6 As per request 100g 46 IBLS- CHRLQR-0024 Sulfuric Acid 7664-93-9 As per request 500ml 47 IBLS- CHRLQR-0025 Kathon-CG NA As per request 250ml 48 IBLS- CHRLQR-0026 BSA 9048-46-8 As per request 500g 49 IBLS- CHRLQR-0027 Potassium di-hydrogen phosphate 7778-77-0 As per request 500g 50 IBLS- CHRLQR-0028 Titron-X-100 9002-93-1 As per request 250ml 51 IBLS- CHRLQR-0029 Sodium Hydroxide 1370-73-0 As per request 500g 52 IBLS- CHRLQR-0030 Phosphoric Acid 7664-38-2 As per request 500g 53 Essential Chemicals IBLS- CHREC-0001 ACETONE LR-2.5 L LR Grade As per request 2.5Lt 54 IBLS- CHREC-0002 BENZOIC ACID LR Grade As per request 5kg 55 IBLS- CHREC-0003 Disodium Tetraborate LR Grade As per request 2.5kg 56 IBLS- CHREC-0004 BORAX AR Grade As per request 5kg 57 IBLS- CHREC-0005 BORIC ACID AR Grade As per request 5kg 58 IBLS- CHREC-0006 Bromo Cresol Purple (BCP) AR Grade As per request 100g 59 IBLS- CHREC-0007 ETHYLENE GLYCOL LR Grade As per request 500ml 60 IBLS- CHREC-0008 EDTA DISODIUM SALT AR AR Grade As per request 500g 61 IBLS- CHREC-0009 E.D.T.A. disodium salt dihydrate LR LR Grade As per request 500g 62 IBLS- CHREC-0010 GLYCEROL LR Grade As per request 500ml 63 IBLS- CHREC-0011 HYDROCHLORIC ACID AR Grade As per request 2.5lt 64 IBLS- CHREC-0012 IMIDAZOLE LR (HEMATOLOGY) LR Grade As per request 500g 65 IBLS- CHREC-0013 MAGNESIUM CHLORIDE (AR) LR Grade As per request 500g 66 IBLS- CHREC-0014 Urea AR AR Grade As per request 500g 67 IBLS- CHREC-0015 Potassium Chloride LR Grade As per request 500g 68 IBLS- CHREC-0016 POTASSIUM DIHYDROGEN PHOSPHATE LR Grade As per request 500g 69 IBLS- CHREC-0017 Potassium dihydrogen phosphate LR LR Grade As per request 500g 70 IBLS- CHREC-0018 Propylene Glycol AR Grade As per request 500ml 71 IBLS- CHREC-0019 PYRIDINE AR Grade As per request 100ml 72 IBLS- CHREC-0020 DI POT. HYD. ORTH. PHOS LR Grade As per request 500g 73 IBLS- CHREC-0021 SODIUM ACETATE LR Grade As per request 500g 74 IBLS- CHREC-0022 SODIUM BENZOATE LR Grade As per request 500g 75 IBLS- CHREC-0023 Sodium phosphate monobasic dihydrate LR LR Grade As per request 500g 76 IBLS- CHREC-0024 SODIUM HYDROXIDE LR Grade As per request 500g 77 IBLS- CHREC-0025 Sodium phosphate dibasic anhydrous LR LR Grade As per request 500g 78 IBLS- CHREC-0026 SODIUM SULPHATE ANHYDROUS LR Grade As per request 500g 79 IBLS- CHREC-0027 SODIUM CITRATE DIHYDRATE LR Grade As per request 500g 80 IBLS- CHREC-0028 SODIUM CHLORIDE LR Grade As per request 500g 81 IBLS- CHREC-0029 TRIS BUFFER AR Grade As per request 500g 82 Reagents for IVD IBLS- CHRIVD-0001 Casein Hammerstein Grade 9000-71-9 As per request 500gm 83 IBLS- CHRIVD-0002 Di-Sodium Hydrogen Phosphate anhydrous GR 7558-79-4 As per request 500GM 84 IBLS- CHRIVD-0003 Sodium di-Hydrogen Phosphate dihydrate GR 13472-35-0 As per request 500gm 85 IBLS- CHRIVD-0004 Boric Acid 10043-35-3 As per request 500gm 86 IBLS- CHRIVD-0005 Di-Sodium Tetraborate 1303-96-4 As per request 500g 87 IBLS- CHRIVD-0006 Potassium Chloride 7447-40-7 As per request 500gm 88 IBLS- CHRIVD-0007 Potassium Di-hydrogen Phosphate 7778-77-0 As per request 1000g 89 IBLS- CHRIVD-0008 MOPS(3-morpholinopropane sulfonic Acid) 1132-61-2 As per request 100gm 90 IBLS- CHRIVD-0009 Sodium Chloride AR GRADE 7647-14-5 As per request 500gm 91 IBLS- CHRIVD-0010 Tri-Sodium Citrate 2-Hydrate(Purified) 4/3/6132 As per request 500gm 92 IBLS- CHRIVD-0011 D-(+)-Trehalose Dihydrate 6138-23-4 As per request 25gm 93 IBLS- CHRIVD-0012 D-(+)-Trehalose Dihydrate 6138-23-4 As per request 25gm 94 IBLS- CHRIVD-0013 Sucrose GR 57-50-1 As per request 500gm 95 IBLS- CHRIVD-0014 Gold(III) Chloride Trihydrate 16961-25-4 As per request 1 gm 96 IBLS- CHRIVD-0015 Potassium Carbonate 584-08-7 As per request 500gm 97 IBLS- CHRIVD-0016 Hydrochloric Acid 7647-01-0 As per request 500ml 98 IBLS- CHRIVD-0017 Brij-35 9002-92-0 As per request 500gm 99 IBLS- CHRIVD-0018 Sodium Azide 26628-22-8 As per request 100gm 100 IBLS- CHRIVD-0019 Tween -20 9005-64-5 As per request 500ml 101 IBLS- CHRIVD-0020 Tween -20 9005-64-5 As per request 100ml 102 IBLS- CHRIVD-0021 Potassium Iodide 7681-11-0 As per request 500gm 103 IBLS- CHRIVD-0022 Potassium Dichromate 7789-50-9 As per request 500gm 104 IBLS- CHRIVD-0023 EDTA, Disodium Salt 6381-92-6 As per request 100gm 105 IBLS- CHRIVD-0024 Sulfuric Acid 7664-93-9 As per request 500ml 106 IBLS- CHRIVD-0025 Kathon-CG As per request As per request 50g 107 IBLS- CHRIVD-0026 BSA 9048-46-8 As per request 10gm 108 IBLS- CHRIVD-0027 Potassium di-hydrogen phosphate 7778-77-0 As per request 500g 109 IBLS- CHRIVD-0028 Titron-X-100 9002-93-1 As per request 1 L 110 IBLS- CHRIVD-0029 Sodium Hydroxide 1370-73-0 As per request 500gm 111 IBLS- CHRIVD-0030 Phosphoric Acid 7664-38-2 As per request 500ml 112 IBLS- CHRIVD-0031 ACETONE LR-2.5 L LR Grade As per request 2.5Lt 113 IBLS- CHRIVD-0032 BENZOIC ACID LR Grade As per request 500gm 114 IBLS- CHRIVD-0033 Disodium Tetraborate LR Grade As per request 500gm 115 IBLS- CHRIVD-0034 BORAX AR Grade As per request 500gm 116 IBLS- CHRIVD-0035 BORIC ACID AR Grade As per request 5Kg 117 IBLS- CHRIVD-0036 Bromo Cresol Purple (BCP) AR Grade As per request 5gm 118 IBLS- CHRIVD-0037 ETHYLENE GLYCOL LR Grade As per request 500ml 119 IBLS- CHRIVD-0038 EDTA DISODIUM SALT AR AR Grade As per request 500gm 120 IBLS- CHRIVD-0039 E.D.T.A. disodium salt dihydrate LR LR Grade As per request 500gm 121 IBLS- CHRIVD-0040 GLYCEROL LR Grade As per request 500ml 122 IBLS- CHRIVD-0041 HYDROCHLORIC ACID AR Grade As per request 2.5Lt 123 IBLS- CHRIVD-0042 IMIDAZOLE LR (HEMATOLOGY) LR Grade As per request 100gm 124 IBLS- CHRIVD-0043 MAGNESIUM CHLORIDE (AR) LR Grade As per request 500gm 125 IBLS- CHRIVD-0044 Urea AR AR Grade As per request 500gm 126 IBLS- CHRIVD-0045 Potassium Chloride LR Grade As per request 500gm 127 IBLS- CHRIVD-0046 POTASSIUM DIHYDROGEN PHOSPHATE LR Grade As per request 500gm 128 IBLS- CHRIVD-0047 Potassium dihydrogen phosphate LR LR Grade As per request 500gm 129 IBLS- CHRIVD-0048 Propylene Glycol AR Grade As per request 500ml 130 IBLS- CHRIVD-0049 PYRIDINE AR Grade As per request 500ml 131 IBLS- CHRIVD-0050 DI POT. HYD. ORTH. PHOS LR Grade As per request 500gm 132 IBLS- CHRIVD-0051 SODIUM ACETATE LR Grade As per request 500gm 133 IBLS- CHRIVD-0052 SODIUM BENZOATE LR Grade As per request 500gm 134 IBLS- CHRIVD-0053 Sodium phosphate monobasic dihydrate LR LR Grade As per request 500gm 135 IBLS- CHRIVD-0054 SODIUM HYDROXIDE LR Grade As per request 500gm 136 IBLS- CHRIVD-0055 Sodium phosphate dibasic anhydrous LR LR Grade As per request 500gm 137 IBLS- CHRIVD-0056 SODIUM SULPHATE ANHYDROUS LR Grade As per request 500gm 138 IBLS- CHRIVD-0057 SODIUM CITRATE DIHYDRATE LR Grade As per request 500gm 139 IBLS- CHRIVD-0058 SODIUM CHLORIDE LR Grade As per request 500gm 140 IBLS- CHRIVD-0059 TRIS BUFFER AR Grade As per request 500gm 141 IBLS- CHRIVD-0060 2-Mercaptopyridine-1-oxide Sodium salt Solution/Pyrithione Sodium salt LR Grade As per request 500 ml 142 IBLS- CHRIVD-0061 2-Phenoxyethanol/Phenoxietanol, Ethyleneglycol-monophenylether LR Grade As per request 2.5 Ltr 143 IBLS- CHRIVD-0062 Acidum Boricum Crystallisatum LR Grade As per request 500gm 144 IBLS- CHRIVD-0063 Alkalase 2.5 L, Type DX AR Grade As per request 2.5 Ltr 145 IBLS- CHRIVD-0064 Dodecyl-Trimethyl-Ammonium-Chloride solution AR Grade As per request 5 kg 146 IBLS- CHRIVD-0065 Erioglaucine (C.I. 42090)/Acid Blue 9, Alphazurine FG AR Grade As per request 5 gm 147 IBLS- CHRIVD-0066 Ethylenediaminetetraacetic acid disodium salt-2-hydroxy-EDTA-di-na-salt x2H2O LR Grade As per request 500 gm 148 IBLS- CHRIVD-0067 GLYDANT/1,3-dihydroxymethyl-5,5-dimethylhydantoin AR Grade As per request 500ml 149 IBLS- CHRIVD-0068 Hydrochloric acid min. 37% LR Grade As per request 2.5 Ltr 150 IBLS- CHRIVD-0069 IMIDAZOLE/Glyoxalimen, 1,3-Diaza-2,4-cyclopentadiene LR Grade As per request 100gm 151 IBLS- CHRIVD-0070 Calcium Chloride dihydrate AR Grade As per request 5 Kg 152 IBLS- CHRIVD-0071 Savinase 16 L, Type EX LR Grade As per request Inquire 153 IBLS- CHRIVD-0072 Sodium azide LR Grade As per request 100gm 154 IBLS- CHRIVD-0073 Sodium Chloride/Ph.Eur. AR Grade As per request 25 Kg 155 IBLS- CHRIVD-0074 Sodium-citrate puris LR Grade As per request 500gm 156 IBLS- CHRIVD-0075 Sodium hydroxide LR Grade As per request 1 Kg 157 IBLS- CHRIVD-0076 Sodium hypochlorite solution conc. Cl more than 10 % LR Grade As per request 1 Ltr 158 IBLS- CHRIVD-0077 Sodium sulphate anhydrous AR Grade As per request 10 kg 159 IBLS- CHRIVD-0078 Sodium-Tetraborate-deka-hydrate (Borax) AR Grade As per request 500gm 160 IBLS- CHRIVD-0079 Tris (hydroxymethyl) aminomethan/TRIS buffer LR Grade As per request 500gm 161 IBLS- CHRIVD-0080 Triton X-405 Solution LR Grade As per request 1 Ltr 162 IBLS- CHRIVD-0081 Triton X-705 Solution Etyl Hexadecyl Dimethyl ammonium bromide LR Grade As per request 500ml 163 IBLS- CHRIVD-0082 SODIUM CHLORIDE AR LR Grade As per request 25 KG 164 IBLS- CHRIVD-0083 IMIDAZOLE LR LR Grade As per request 25 KG 165 IBLS- CHRIVD-0084 Dodecyl-trimethyl-ammonium-chloride LR Grade As per request 20 KG 166 IBLS- CHRIVD-0085 TRITON X-405 AR Grade As per request 16 Ltr 167 IBLS- CHRIVD-0086 2MERCAPTOPYRIDINE AR Grade As per request 500 ml 168 IBLS- CHRIVD-0087 SODIUM AZIDE AR Grade As per request 5 KG 169 IBLS- CHRIVD-0088 Etyl Hexadecyl Dimethyl ammonium bromide LR Grade As per request 20KG 170 IBLS- CHRIVD-0089 Sodium Hydroxide AR Grade As per request 20 kg 171 IBLS- CHRIVD-0090 EDTA- Dipotassium salt LR Grade As per request 5Kg 172 IBLS- CHRIVD-0091 TRITON X-705 LR Grade As per request 500 ml 173 IBLS- CHRIVD-0092 GLYDANT (DMDMH) LR Grade As per request 20 Ltr 174 IBLS- CHRIVD-0093 HYDROCHLORIC ACID LR Grade As per request 5 Ltr 175 IBLS- CHRIVD-0094 SODIUM SULPHATE ANHYDROUS LR Grade As per request 20 KG 176 IBLS- CHRIVD-0095 TRIS BUFFER LR Grade As per request 20 KG 177 IBLS- CHRIVD-0096 2-PHENOXYETHANOL AR Grade As per request 5 Ltr 178 IBLS- CHRIVD-0097 Dodecyl trimethyl ammonium bromide AR Grade As per request 20 KG 179 IBLS- CHRIVD-0098 Potassium Chloride AR Grade As per request 20 kg 180 IBLS- CHRIVD-0099 Proxil 100 L R Grade As per request 5 Liter 181 IBLS- CHRIVD-0100 Sodium Hypochlorite Solution Conc. Cl-12% AR Grade As per request 5 Ltr. 182 IBLS- CHRIVD-0101 CALCIUM CHLORIDE DIHYDRATE L R Grade As per request 20 Kg 183 IBLS- CHRIVD-0102 SODIUM CITRATE DIHYDRATE L R Grade As per request 20 Kg 184 IBLS- CHRIVD-0103 BORAX L R Grade As per request 20 Kg 185 IBLS- CHRIVD-0104 BORIC ACID L R Grade As per request 5 KG 186 IBLS- CHRIVD-0105 ERIOGLAUCINE AR Grade As per request 25 gm 187 IBLS- CHRIVD-0106 ALKALASE L R Grade As per request 5 Ltr. 188 IBLS- CHRIVD-0107 SAVINASE L R Grade As per request 5 Ltr. 189 IBLS- CHRIVD-0108 EDTA - Di-Sodium salt L R Grade As per request 5 KG 190 IBLS- CHRIVD-0109 TRITON® X-100 AR Grade As per request 1 Ltr. 191 IBLS- CHRIVD-0110 Sodium Deoxycholate AR Grade As per request 1 Kg 192 IBLS- CHRIVD-0111 Tri Sodium Citrate AR Grade As per request Inquire 193 IBLS- CHRIVD-0112 β-Propioglucose L R Grade As per request Inquire 194 IBLS- CHRIVD-0113 ENZYME - GLUCOSE OXIDASE As per request As per request 100MU 195 IBLS- CHRIVD-0114 ENZYME - L-ALFA-GLYCEROL PHOSPHATE OXIDASE MICRO ORGANISM RECOMBINANT As per request As per request 100KUL 196 IBLS- CHRIVD-0115 LIPOPROTEIN LIPASE (CHEMICALLY MODIFIED) As per request As per request 1MU 197 IBLS- CHRIVD-0116 ENZYME - PEROXIDASE As per request As per request 1MU 198 IBLS- CHRIVD-0117 ENZYME - GLDH-GLUTAMATE DEHYDROGENASE As per request As per request 25KUL 199 IBLS- CHRIVD-0118 CNPG2 As per request As per request 5gms 200 IBLS- CHRIVD-0119 r-D LDH As per request As per request 100KUL 201 IBLS- CHRIVD-0120 CFAS 3ml Vial As per request As per request 3ml 202 IBLS- CHRIVD-0121 CHOLESTROL OXIDASE ORIGIN MICROORGANISM As per request As per request 100KUL 203 IBLS- CHRIVD-0122 GLYCYRROKINASE - BACILLUS STEAROTHERMOPHILUS As per request As per request 100KUL 204 IBLS- CHRIVD-0123 Lipase Reagent R1 As per request As per request 1ltr 205 IBLS- CHRIVD-0124 beta - NADH As per request As per request 100gms 206 IBLS- CHRIVD-0125 G-6-PDH As per request As per request 100KUL 207 IBLS- CHRIVD-0126 CHOLESTROL ESTERASE ORIGIN PSEUDOMONAS As per request As per request 100KUL 208 IBLS- CHRIVD-0127 UREASE As per request As per request 1MU 209 IBLS- CHRIVD-0128 URICASE PRODUCT (WHITE FREE FLOWING POWDER) As per request As per request 25KUL 210 IBLS- CHRIVD-0129 Lipase Reagent R2 As per request As per request 1ltr 211 IBLS- CHRIVD-0130 CP-Na As per request As per request 100KUL 212 IBLS- CHRIVD-0131 L - ALANINE NA SALT As per request As per request 1kg 213 IBLS- CHRIVD-0132 PIPES BUFFER As per request As per request 1kg 214 IBLS- CHRIVD-0133 pNPP DI-TRIS SALT As per request As per request 100gms 215 IBLS- CHRIVD-0134 ENZYME - ALFA-KETO GLUTARATE As per request As per request 100gms 216 IBLS- CHRIVD-0135 Anti CK MM antibody As per request As per request 100ml 217 IBLS- CHRIVD-0136 TOOS As per request As per request 100gms 218 IBLS- CHRIVD-0137 L-ASPARTATE NA SALT As per request As per request 1kg 219 IBLS- CHRIVD-0138 Thesit As per request As per request 500gms 220 IBLS- CHRIVD-0139 BOVINE ALBUMIN-PROTEASE FREE As per request As per request 500gms 221 IBLS- CHRIVD-0140 MOPS - Free Acid As per request As per request 1kg 222 IBLS- CHRIVD-0141 rMDH As per request As per request 100KUL 223 IBLS- CHRIVD-0142 ARSENAZO III As per request As per request 25gms 224 IBLS- CHRIVD-0143 rHK As per request As per request 100KUL 225 IBLS- CHRIVD-0144 pNPP DI-TRIS SALT As per request As per request 100gms 226 IBLS- CHRIVD-0145 2-AMINO-2-METHYL-1-PROPANOL As per request As per request 1ltr 227 IBLS- CHRIVD-0146 MOPS - SODIUM SALT As per request As per request 1kg 228 IBLS- CHRIVD-0147 TRITON X-100 As per request As per request 500ml 229 IBLS- CHRIVD-0148 SODIUM AZIDE - AR grade As per request As per request 500gms 230 IBLS- CHRIVD-0149 TRISS BUFFER - AR grade As per request As per request 1kg 231 IBLS- CHRIVD-0150 POTASSIUM DIHYDROGEN ORTHOPHOSPHATE - AR grade As per request As per request 5kg 232 IBLS- CHRIVD-0151 DI-POTASSIUM HYDROGEN O-PHOSPHATE ANHYDROUS - AR grade As per request As per request 5kg 233 IBLS- CHRIVD-0152 O-CRESOLPHTHALEIN COMPLEXONE As per request As per request 25gms 234 IBLS- CHRIVD-0153 4-AMINOANTIPYRINE As per request As per request 500gms 235 IBLS- CHRIVD-0154 3-5-DICHLORO-2-HYDROXY-BENZENESULFONIC ACID As per request As per request 25gms 236 IBLS- CHRIVD-0155 HEDTA - N-(2-HIDROXYETHYL) ETHYLENE DIAMINE - N - N&#x27; - TRIACATIC ACID As per request As per request 100gms 237 IBLS- CHRIVD-0156 2,4,6-TRIBROMO-3-HYDROXYBENZOIC ACID As per request As per request 25gms 238 IBLS- CHRIVD-0157 DIETHYLENE TRIAMINE PENTA ACETIC ACID As per request As per request 500gms 239 IBLS- CHRIVD-0158 TRITON X-405 As per request As per request 500ml 240 IBLS- CHRIVD-0159 2-Amino-2-Methyl-1-Propanol As per request As per request 500 ml 241 IBLS- CHRIVD-0160 8-Hydroxyquinoline GR As per request As per request 100 gm 242 IBLS- CHRIVD-0161 8-Hydroxyquinoline Sulphate As per request As per request 100 gm 243 IBLS- CHRIVD-0162 Bovine Serum Albumin (BSA) As per request As per request 500 gm 244 IBLS- CHRIVD-0163 Carbinol/Methanol As per request As per request 5.0 Liters 245 IBLS- CHRIVD-0164 Cholesterol As per request As per request 100 gm 246 IBLS- CHRIVD-0165 EGTA As per request As per request 100 gm 247 IBLS- CHRIVD-0166 Ferric Nitrate As per request As per request 100 gm 248 IBLS- CHRIVD-0167 Glutathione Reduced As per request As per request 10 gm 249 IBLS- CHRIVD-0168 Mercury Thiocyanate As per request As per request 100 gm 250 IBLS- CHRIVD-0169 MES Buffer As per request As per request 500 gm 251 IBLS- CHRIVD-0170 O-Cresolphthalene Complexone AR As per request As per request 10 gm 252 IBLS- CHRIVD-0171 Para-Chloro Phenol Pure As per request As per request 500 ml 253 IBLS- CHRIVD-0172 Proclin 300 As per request As per request 100 ml 254 IBLS- CHRIVD-0173 Pyrogallol Red AR As per request As per request Inquire 255 IBLS- CHRIVD-0174 Sodium Pyruvate As per request As per request 100 gm 256 IBLS- CHRIVD-0175 Sodium Tetra Phenyl Borate As per request As per request 100 gm 257 IBLS- CHRIVD-0176 Tris HCl As per request As per request 500 gm 258 IBLS- CHRIVD-0177 Tri Sodium Citrate As per request As per request 500 gm 259 IBLS- CHRIVD-0178 Uric Acid AR As per request As per request 100 gm 260 IBLS- CHRIVD-0179 Xylidyl Blue As per request As per request 1 gm 261 IBLS- CHRIVD-0180 Triton X-100 As per request As per request 500 ml 262 IBLS- CHRIVD-0181 Ammonium Molybdate As per request As per request 100 gm 263 IBLS- CHRIVD-0182 Benzoic Acid SQ As per request As per request 500 gm 264 IBLS- CHRIVD-0183 Bromo Cresol Green (BCG) As per request As per request 5 gm 265 IBLS- CHRIVD-0184 Calcium Chloride Fused As per request As per request 500 gm 266 IBLS- CHRIVD-0185 Dimethyl Sulphoxide HPLC (DMSO) As per request As per request 500 ml 267 IBLS- CHRIVD-0186 Di-Sodium Hydrogen Phosphate As per request As per request 500 gm 268 IBLS- CHRIVD-0187 EDTA Di-Sodium Dihydrate Salt As per request As per request 500 gm 269 IBLS- CHRIVD-0188 Formaldehyde 37% As per request As per request 500 ml 270 IBLS- CHRIVD-0189 Lithium Carbonate As per request As per request 100 gm 271 IBLS- CHRIVD-0190 Mannitol As per request As per request 500 gm 272 IBLS- CHRIVD-0191 Phenol GR As per request As per request 500 ml 273 IBLS- CHRIVD-0192 Phosphotungstic Acid As per request As per request 10 gm 274 IBLS- CHRIVD-0193 Potassium Dihydrogen Phosphate As per request As per request 500 gm 275 IBLS- CHRIVD-0194 Potassium Ferrocyanide SQ As per request As per request 100 gm 276 IBLS- CHRIVD-0195 Potassium Iodide Pure As per request As per request 500 gm 277 IBLS- CHRIVD-0196 Potassium Thiocyanate As per request As per request 500 gm 278 IBLS- CHRIVD-0197 Sodium Hypochlorite 4% As per request As per request 500 ml 279 IBLS- CHRIVD-0198 Sodium Meta Bisulphite Excelar L R Grade As per request 500 gm 280 IBLS- CHRIVD-0199 Sodium Salicylate GR L R Grade As per request 500 gm 281 IBLS- CHRIVD-0200 4-Amino Antipyrine L R Grade As per request 100 gm 282 IBLS- CHRIVD-0201 4-Ghloro-3-methyl Phenol AR Grade As per request 500 gm 283 IBLS- CHRIVD-0202 Boric Acid SQ AR Grade As per request 500 gm 284 IBLS- CHRIVD-0203 Brij-35 AR Grade As per request 500 gm 285 IBLS- CHRIVD-0204 Calcium Carbonate Precipitated LR Grade As per request 100 gm 286 IBLS- CHRIVD-0205 Calcium Chloride Dihydrate AR Grade As per request 500 gm 287 IBLS- CHRIVD-0206 Cetrimide LR Grade As per request 100 gm 288 IBLS- CHRIVD-0207 Charcoal Powder Act-250 LR Grade As per request 500 gm 289 IBLS- CHRIVD-0208 Citric Acid Monohydrate LR Grade As per request 100 gm 290 IBLS- CHRIVD-0209 Copper Sulphate Penta Hydrate LR Grade As per request 500 gm 291 IBLS- CHRIVD-0210 Creatinine Extra Pure AR Grade As per request 100 gm 292 IBLS- CHRIVD-0211 Dextrose Anhydrous AR Grade As per request 500 gm 293 IBLS- CHRIVD-0212 Diethanolamine LR Grade As per request 5.0 Liters 294 IBLS- CHRIVD-0213 Di-Potassium Hydrogen Phosphate LR Grade As per request 500 gm 295 IBLS- CHRIVD-0214 Di-Sodium Oxalate LR Grade As per request 100 gm 296 IBLS- CHRIVD-0215 EDTA Extra Pure AR Grade As per request 500 gm 297 IBLS- CHRIVD-0216 Ethylene Glycol GR AR Grade As per request 500 ml 298 IBLS- CHRIVD-0217 Extran AR Grade As per request 5.0 Liters 299 IBLS- CHRIVD-0218 Glycerol Anhydrous (Glycerin) LR Grade As per request 5.0 Liters 300 IBLS- CHRIVD-0219 Hydrochloric 35% AR Grade As per request 5.0 Liters 301 IBLS- CHRIVD-0220 Immidazole GR LR Grade As per request 100 gm 302 IBLS- CHRIVD-0221 Magnesium Chloride Hexahydrate LR Grade As per request 500 gm 303 IBLS- CHRIVD-0222 Magnesium Sulphate Heptahydrate LR Grade As per request 500 gm 304 IBLS- CHRIVD-0223 Mercury Chloride GR LR Grade As per request 100 gm 305 IBLS- CHRIVD-0224 Nitric Acid, 70% Pure AR Grade As per request 500 ml 306 IBLS- CHRIVD-0225 Oxalic Acid Dihydrate GR AR Grade As per request 100 gm 307 IBLS- CHRIVD-0226 Picric Acid Extra Pure LR Grade As per request 500 gm 308 IBLS- CHRIVD-0227 Polyethylene Glycol 6000 LR Grade As per request 500 gm 309 IBLS- CHRIVD-0228 Potassium Chloride LR Grade As per request 100 gm 310 IBLS- CHRIVD-0229 Potassium Carbonate AR Grade As per request 100 gm 311 IBLS- CHRIVD-0230 Potassium Sodium Tartarate Tetra AR Grade As per request 500 gm 312 IBLS- CHRIVD-0231 Potassium Thiocyanate AR Grade As per request 500 gm 313 IBLS- CHRIVD-0232 Sodium Azide LR Grade As per request 500 gm 314 IBLS- CHRIVD-0233 Sodium Benzoate Purified AR Grade As per request 100 gm 315 IBLS- CHRIVD-0234 Sodium Carbonate Anhydrous GR LR Grade As per request 100 gm 316 IBLS- CHRIVD-0235 Sodium Chloride GR LR Grade As per request 500 gm 317 IBLS- CHRIVD-0236 Sodium Dihydrogen Mono Phosphate LR Grade As per request 500 gm 318 IBLS- CHRIVD-0237 Sodium Hydrogen Carbonate GR LR Grade As per request 500 gm 319 IBLS- CHRIVD-0238 Sodium Hydroxide Pellets GR LR Grade As per request 5.0 Kg 320 IBLS- CHRIVD-0239 Sodium Molybdate AR Grade As per request 100 gm 321 IBLS- CHRIVD-0240 Sodium Nitrite GR AR Grade As per request 100 gm 322 IBLS- CHRIVD-0241 Sodium Nitroprusside GR AR Grade As per request 50 gm 323 IBLS- CHRIVD-0242 Sodium Sulphite Anhydrous LR Grade As per request 500 gm 324 IBLS- CHRIVD-0243 Succinic Acid GR AR Grade As per request 500 gm 325 IBLS- CHRIVD-0244 Sucrose GR LR Grade As per request 500 gm 326 IBLS- CHRIVD-0245 Sulphanilic Acid GR LR Grade As per request 500 gm 327 IBLS- CHRIVD-0246 Sulphuric Acid 98% GR LR Grade As per request 5.0 Liters 328 IBLS- CHRIVD-0247 Titriplex III LR Grade As per request 100 gm 329 IBLS- CHRIVD-0248 Tris Buffer GR AR Grade As per request 500 gm 330 IBLS- CHRIVD-0249 Urea GR AR Grade As per request 100 gm 331 IBLS- CHRIVD-0250 2-Mercaptopyridine-1-oxide Sodium Salt LR Grade As per request 500 ml 332 IBLS- CHRIVD-0251 2-Phenoxyethanol/Phenoxietanol, Ethyleneglycol-monophenylether LR Grade As per request 2.5 Ltr 333 IBLS- CHRIVD-0252 Acidum Boricum Crystallisatum LR Grade As per request 500gm 334 IBLS- CHRIVD-0253 Alkálase 2.5 L, Type DX AR Grade As per request 2.5 Ltr 335 IBLS- CHRIVD-0254 Dodecyl-Trimethyl-Aminomium-Chloride solution AR Grade As per request 5 kg 336 IBLS- CHRIVD-0255 Erioglaucine (C.I: 42090)/Acid Blue 9, Alphazurine FG AR Grade As per request 5 g 337 IBLS- CHRIVD-0256 Ethylenediaminetetraacetic acid disodium salt-2-hydroxyEDTA-di-na-salt x2H20 L R Grade As per request 500 gm 338 IBLS- CHRIVD-0257 GLYDANT/1,3-dihydroxymethyl-5,5-dimethylhydantoin/DMDMH AR Grade As per request 500ml 339 IBLS- CHRIVD-0258 Hydrochloric acid min. 37% L R Grade As per request 2.5 Ltr 340 IBLS- CHRIVD-0259 IMIDAZOLE/Glyoxalinen, 1,3-Diaza-2,4-cyclopentadiene L R Grade As per request 100gm 341 IBLS- CHRIVD-0260 Calcium Chloride dihydrate AR Grade As per request 5 kg 342 IBLS- CHRIVD-0261 Savinase 16 L, Type EX L R Grade As per request 2.5Lt 343 IBLS- CHRIVD-0262 Sodium azide L R Grade As per request 100gm 344 IBLS- CHRIVD-0263 Sodium Chloride/Ph.Eur. AR Grade As per request 25 Kg 345 IBLS- CHRIVD-0264 Sodium-citrate puris L R Grade As per request 500gm 346 IBLS- CHRIVD-0265 Sodium hydroxide L R Grade As per request 1 Kg 347 IBLS- CHRIVD-0266 Sodium hypochlorite solution conc. Cl more than 10 % L R Grade As per request 1 Ltr 348 IBLS- CHRIVD-0267 Sodium sulphate anhydrous AR Grade As per request 10 kg 349 IBLS- CHRIVD-0268 Sodium-Tetraborate-deka-hydrate (Borax) AR Grade As per request 500gm 350 IBLS- CHRIVD-0269 Tris (hydroxymethyl) aminomethan/TRIS buffer L R Grade As per request 500gm 351 IBLS- CHRIVD-0270 Triton X-405 Solution L R Grade As per request 1 Ltr 352 IBLS- CHRIVD-0271 Triton X-705 Solution L R Grade As per request 500ml 353 IBLS- CHRIVD-0272 PIPES Monosodium AR Grade As per request Inquire 354 IBLS- CHRIVD-0273 PIPES Disodium AR Grade As per request Inquire 355 IBLS- CHRIVD-0274 PIPES Free Acid L R Grade As per request Inquire 356 IBLS- CHRIVD-0275 POTASSIUM PHOSPHATE DI BASIC AR Grade As per request Inquire 357 IBLS- CHRIVD-0276 Potassium phosphate monobasic L R Grade As per request Inquire 358 IBLS- CHRIVD-0277 TAPS (N-Trishydroxymethyl)methyl-3-aminopropanesulfonic acid C7H11NO3S L R Grade As per request Inquire 359 IBLS- CHRIVD-0278 ACES (N-(2-Acetamido)-2-aminoethanesulfonic acid C7H13N2O3S) AR Grade As per request Inquire 360 IBLS- CHRIVD-0279 ADA ((N-(2-Acetamido)iminodiacetic acid) C7H13N2O3) L R Grade As per request Inquire 361 IBLS- CHRIVD-0280 AMT(2-amino-2-methyl-1-propanol C6H13NO) L R Grade As per request Inquire 362 IBLS- CHRIVD-0281 BES AR Grade As per request Inquire 363 IBLS- CHRIVD-0282 BICINE L R Grade As per request Inquire 364 IBLS- CHRIVD-0283 CAPS L R Grade As per request Inquire 365 IBLS- CHRIVD-0284 CAPSO L R Grade As per request Inquire 366 IBLS- CHRIVD-0285 CAPSO SODIUM SALT AR Grade As per request Inquire 367 IBLS- CHRIVD-0286 HEPES AR Grade As per request Inquire 368 IBLS- CHRIVD-0287 HEPES SODIUM SALT L R Grade As per request Inquire 369 IBLS- CHRIVD-0288 MES AR Grade As per request Inquire 370 IBLS- CHRIVD-0289 MES HEMISODIUM SALT AR Grade As per request Inquire 371 IBLS- CHRIVD-0290 PEG 6000 L R Grade As per request Inquire 372 IBLS- CHRIVD-0291 PEG 8000 AR Grade As per request Inquire 373 IBLS- CHRIVD-0292 Hydroxyammonium Chloride AR Grade As per request Inquire 374 IBLS- CHRIVD-0293 2-Pyridinol 1-oxide AR Grade As per request Inquire 375 IBLS- CHRIVD-0294 2,4-Dichlorobenzenediazonium 1,5-naphthalenedisulfonate hydrate L R Grade As per request Inquire 376 IBLS- CHRIVD-0295 8-Hydroxy-5-quinolinesulfonic acid hydrate AR Grade As per request Inquire 377 IBLS- CHRIVD-0296 Bilirubin L R Grade As per request Inquire 378 IBLS- CHRIVD-0297 L-Methionine L R Grade As per request Inquire 379 IBLS- CHRIVD-0298 N-Methyl-D-glucamine AR Grade As per request Inquire 380 IBLS- CHRIVD-0299 1,3-Dimethylurea L R Grade As per request Inquire 381 IBLS- CHRIVD-0300 Bis-TRIS (2,2-Bis(hydroxymethyl)-2,2,2,2-tritlortriethanol) L R Grade As per request Inquire 382 IBLS- CHRIVD-0301 Methylene Blue AR Grade As per request Inquire 383 IBLS- CHRIVD-0302 Cetrimide - Myristyltrimethylammonium bromide L R Grade As per request Inquire 384 IBLS- CHRIVD-0303 Citric acid monohydrate L R Grade As per request Inquire 385 IBLS- CHRIVD-0304 2,2&#x27;-Dithiobis(pyridine-N-oxide) L R Grade As per request Inquire 386 IBLS- CHRIVD-0305 SODIUM HYPOCHLORITE LR Grade As per request Inquire 387 IBLS- CHRIVD-0306 Trimethyloctylammonium Chloride AR Grade As per request Inquire 388 IBLS- CHRIVD-0307 CITRIC ACID MONOHYDRATE LR Grade As per request Inquire 389 IBLS- CHRIVD-0308 Dodecyl Trimethyl Ammonium Bromide LR Grade As per request Inquire 390 IBLS- CHRIVD-0309 FORMIC ACID AR Grade As per request Inquire 391 IBLS- CHRIVD-0310 FORMIC ACID LR Grade As per request Inquire 392 IBLS- CHRIVD-0311 Polyoxyl 40 Hydrogenated Castor Oil LR Grade As per request Inquire 393 IBLS- CHRIVD-0312 SODIUM PHOSPHATE MONOBASIC DEHYDRATE AR Grade As per request Inquire 394 IBLS- CHRIVD-0313 SODIUM SULFATE ANHYDROUS LR Grade As per request Inquire 395 IBLS- CHRIVD-0314 SODIUM SULFATE ANHYDROUS LR Grade As per request Inquire 396 Raw Materials IBLS- CHRRM-0001 ZINC SULPHATE As per request As per request 500 397 IBLS- CHRRM-0002 MAGNESIUM ACETATE TETRAHYDRATE As per request As per request 500 398 IBLS- CHRRM-0003 HEDTA As per request As per request 100 399 IBLS- CHRRM-0004 2 AMINO 2 METHYL 1 PROPANOL As per request As per request 2.5 LITER 400 IBLS- CHRRM-0005 PNPP DI TRIS (CAS NO. 4264-83-9) Na salt As per request As per request 100 GM 401 IBLS- CHRRM-0006 PNPP DI TRIS (68189-42-4) salt As per request As per request 100 GM 402 IBLS- CHRRM-0007 CHARCOAL As per request As per request 5 KG 403 IBLS- CHRRM-0008 SUCCINIC ACID As per request As per request 25GM 404 IBLS- CHRRM-0009 SODIUM SUCCINATE (Disodium succinate hexahydrate) CAS NO. 6106-21-4 As per request As per request 500 GM 405 IBLS- CHRRM-0010 SODIUM BENZOATE As per request As per request 500 GM 406 IBLS- CHRRM-0011 BRIJ 35 SOLUTION 30% As per request As per request 500GM 407 IBLS- CHRRM-0012 BROMOCRESOL GREEN SODIUM SALT As per request As per request 25GM 408 IBLS- CHRRM-0013 TRIS As per request As per request 1KG 409 IBLS- CHRRM-0014 HYDROCHLORIC ACID As per request As per request 500 ML 410 IBLS- CHRRM-0015 L-ALANINE As per request As per request 10GM 411 IBLS- CHRRM-0016 EDTA-DiNa As per request As per request 500 GM 412 IBLS- CHRRM-0017 MAGNESIUM CHLORIDE (Magnesium chloride hexahydrate) As per request As per request 500 GM 413 IBLS- CHRRM-0018 D-LACTATE DESHYDROGENASE As per request As per request 1 KU 414 IBLS- CHRRM-0019 SODIUM HYDROGENOCARBONATE (Sodium Bicarbonate) As per request As per request 500 GM 415 IBLS- CHRRM-0020 SODIUM CARBONATE As per request As per request 500 GM 416 IBLS- CHRRM-0021 ALPHA KETOGLUTARATE L di sodium salt di hydrate As per request As per request 25 GM 417 IBLS- CHRRM-0022 SODIUM HYDROXIDE As per request As per request 500GM 418 IBLS- CHRRM-0023 NADH L As per request As per request 1GM 419 IBLS- CHRRM-0024 L-ASPARTIC ACID As per request As per request 1KG 420 IBLS- CHRRM-0025 MALATE DEHYDROGENASE As per request As per request Inquire 421 IBLS- CHRRM-0026 NADH L As per request As per request 1GM 422 IBLS- CHRRM-0027 SULFANILIC ACID As per request As per request 1KG 423 IBLS- CHRRM-0028 SODIUM NITRITE As per request As per request 500 GM 424 IBLS- CHRRM-0029 CETRIMIDE As per request As per request 1KG 425 IBLS- CHRRM-0030 M.E.S. FREE ACID HYDRATE (MES Monohydrate) As per request As per request 1KG 426 IBLS- CHRRM-0031 ARSENAZO III As per request As per request Inquire 427 IBLS- CHRRM-0032 PIPES FREE ACID As per request As per request 1KG 428 IBLS- CHRRM-0033 DTPA As per request As per request 25 GM 429 IBLS- CHRRM-0034 MAGNESIUM ASPARTATE As per request As per request 1KG 430 IBLS- CHRRM-0035 PHENOL As per request As per request 500GM 431 IBLS- CHRRM-0036 CHOLESTEROL-ESTERASE L As per request As per request 1 KU 432 IBLS- CHRRM-0037 CHOLESTEROL OXYDASE L As per request As per request 1 KU 433 IBLS- CHRRM-0038 POTASSIUM DIFUROGENOPHOSPHATE As per request As per request 500 GM 434 IBLS- CHRRM-0039 SODIUM PROPIONATE As per request As per request 500 GM 435 IBLS- CHRRM-0040 SODIUM GLUTAMATE As per request As per request 500 GM 436 IBLS- CHRRM-0041 GLUCOSE OXIDASE As per request As per request Inquire 437 IBLS- CHRRM-0042 TRITON X-100 As per request As per request 500 ML 438 IBLS- CHRRM-0043 CHOLIC ACID (Na Salt) As per request As per request 50 GM 439 IBLS- CHRRM-0044 MAGNESIUM ASPARTATE As per request As per request Inquire 440 IBLS- CHRRM-0045 4-CHLOROPHENOL As per request As per request 500 GM 441 IBLS- CHRRM-0046 ATP-Dina, LP As per request As per request Inquire 442 IBLS- CHRRM-0047 FLAVINE ADENINE DINUCLEOTIDE As per request As per request 100 GM 443 IBLS- CHRRM-0048 AMINO-4-ANTIPYRINE As per request As per request 25 GM 444 IBLS- CHRRM-0049 POTASSIUM HEXACYANOFERRATE (II) r As per request As per request Inquire 445 IBLS- CHRRM-0050 GLYCEROL PHOSPHATE OXIDASE As per request As per request 1 KU 446 IBLS- CHRRM-0051 GLYCEROL KINASE L As per request As per request 1 KU 447 IBLS- CHRRM-0052 LIPOPROTEIN LIPASE As per request As per request 1 KU 448 IBLS- CHRRM-0053 ADP-K As per request As per request Inquire 449 IBLS- CHRRM-0054 POLYETHYLENE GLYCOL 6000 As per request As per request 250 GM 450 IBLS- CHRRM-0055 MERCAPTOSUCCINIC ACID As per request As per request Inquire 451 IBLS- CHRRM-0056 BOVINE ALBUMIN L As per request As per request Inquire 452 IBLS- CHRRM-0057 UREASE L As per request As per request Inquire 453 IBLS- CHRRM-0058 GLUTAMATE DEHYDROGENASE L As per request As per request Inquire 454 IBLS- CHRRM-0059 POTASSIUM IODIDE As per request As per request 500 GM 455 IBLS- CHRRM-0060 POTASSIUM-SODIUM TARTRATE As per request As per request 500 GM 456 IBLS- CHRRM-0061 SULFATE COPPER (Copper (II) sulfate pentahydrate) As per request As per request 500 GM 457 IBLS- CHRRM-0062 PICRIC ACID As per request As per request 500 GM 458 IBLS- CHRRM-0063 DISODIUM HYDROGENOPHOSPHATE As per request As per request 500 GM 459 IBLS- CHRRM-0064 POTASSIUM DIHYDROGENOPHOSPHATE As per request As per request 500 GM 460 IBLS- CHRRM-0065 DIPOTASSIUM HYDROGENOPHOSPHATE As per request As per request 500 GM 461 IBLS- CHRRM-0066 Potassium Phosphate Monobasic As per request As per request 1 kg 462 IBLS- CHRRM-0067 SODIUM TETRABORATE (borax) As per request As per request 500g 463 IBLS- CHRRM-0068 BORIC ACID As per request As per request 500g 464 IBLS- CHRRM-0069 TOOS As per request As per request 50g 465 IBLS- CHRRM-0070 POTASSIUM HEXACYANOFERRATE (II) r As per request As per request 500 gm 466 IBLS- CHRRM-0071 TWEEN-20 As per request As per request 1 liter 467 IBLS- CHRRM-0072 GLYCINE FREE BASE As per request As per request 500 GM 468 IBLS- CHRRM-0073 LIPOPROTEIN LIPASE As per request As per request 1 KU 469 IBLS- CHRRM-0074 URICASE L As per request As per request 1 KU 470 IBLS- CHRRM-0075 PEROXIDASE As per request As per request 1 MU 471 IBLS- CHRRM-0076 M.E.S. FREE ACID HYDRATE As per request As per request 1 KG 472 IBLS- CHRRM-0077 POTASSIUM THIOCYANATE As per request As per request Inquire 473 IBLS- CHRRM-0078 SODIUM CHLORIDE As per request As per request 1 KG 474 IBLS- CHRRM-0079 CALCIUM CHLORIDE As per request As per request 1KG 475 IBLS- CHRRM-0080 CNPGaIG2 As per request As per request Inquire 476 IBLS- CHRRM-0081 CHOLESTEROL ESTERASE CANDIDA As per request As per request 1 KU 477 IBLS- CHRRM-0082 TODB As per request As per request 1 GM 478 IBLS- CHRRM-0083 FLUFENAMIC ACID As per request As per request Inquire 479 IBLS- CHRRM-0084 PROCLIN 300 As per request As per request Inquire 480 IBLS- CHRRM-0085 ASCORBATE OXIDASE As per request As per request Inquire</td><td></td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div>  </div></div>
-<div class="div-panel" id="panel-reag" role="tabpanel" aria-labelledby="tab-reag">  <div class="acc-list"><div class="acc-item" id="acc-7">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-7-body">
-            <span class="acc-title">Buffers &amp; Solutions</span>
-            <span class="acc-badge">194 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-7-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Buffers &amp; Solutions</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-BUF-0001</td><td>6M Guanidine HCl Solution</td><td>100ml</td></tr>
@@ -2103,18 +1850,14 @@
 <tr><td>IBLS-BUF-0193</td><td>Blocking Buffer</td><td>500ml</td></tr>
 <tr><td>IBLS-BUF-0194</td><td>Blocking Buffer</td><td>1000ml</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-6">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-6-body">
-            <span class="acc-title">Molecular Biology Buffers &amp; Reagents</span>
-            <span class="acc-badge">101 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-6-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Molecular Biology Buffers &amp; Reagents</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-MBBR-0001</td><td>Acetate Buffer, pH 5.5 [200mM]</td><td>500 ml</td></tr>
@@ -2219,18 +1962,14 @@
 <tr><td>IBLS-MBBR-0100</td><td>Water, DEPC-Treated</td><td>500 ml</td></tr>
 <tr><td>IBLS-MBBR-0101</td><td>Water, Molecular Grade (Nuclease Free)</td><td>1 Liter</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-13">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-13-body">
-            <span class="acc-title">Protein, Nucleic Acids &amp; Essentials</span>
-            <span class="acc-badge">223 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-13-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Protein, Nucleic Acids &amp; Essentials</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-PNE-0001</td><td>Bradford Reagent</td><td>500 ml</td></tr>
@@ -2457,18 +2196,14 @@
 <tr><td>IBLS-PNE-0222</td><td>Lysozyme (10 mg/ml)</td><td>5g</td></tr>
 <tr><td>IBLS-PNE-0223</td><td>Lysozyme (10 mg/ml)</td><td>10g</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-5">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-5-body">
-            <span class="acc-title">Immunology &amp; Buffer Reagents</span>
-            <span class="acc-badge">56 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-5-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Immunology &amp; Buffer Reagents</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-IBR-0001</td><td>Rapid Coating Buffer (30 min RT)</td><td>500 ml</td></tr>
@@ -2528,18 +2263,14 @@
 <tr><td>IBLS-IBR-0055</td><td>RIPA Lysis Buffer</td><td>250ml</td></tr>
 <tr><td>IBLS-IBR-0056</td><td>RIPA Lysis Buffer</td><td>500ml</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div><div class="acc-item" id="acc-12">
-          <button class="acc-header" aria-expanded="false" aria-controls="acc-12-body">
-            <span class="acc-title">Gel Staining Reagents</span>
-            <span class="acc-badge">18 products</span>
-            <svg class="acc-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="acc-body" id="acc-12-body" hidden>
-            <div class="table-wrap">
-              <table class="product-table">
+              
+  </table>
+</div>
+
+<div class="category-section">
+  <h2 class="category-title">Gel Staining Reagents</h2>
+  <table>
+    
                 <thead><tr><th>Cat #</th><th>Product Name</th><th>Size / Qty</th></tr></thead>
                 <tbody>
 <tr><td>IBLS-GSR-0001</td><td>ECL Western Blotting Substrate</td><td>50 ml</td></tr>
@@ -2561,204 +2292,73 @@
 <tr><td>IBLS-GSR-0017</td><td>Coomassie Brilliant Blue stain</td><td>500 ml</td></tr>
 <tr><td>IBLS-GSR-0018</td><td>Coomassie Brilliant Blue stain</td><td>1000 ml</td></tr>
                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div>  </div></div>
-<div class="div-panel" id="panel-agri" role="tabpanel" aria-labelledby="tab-agri">  <div class="container" style="padding-bottom:60px;">
-<div class="product-grid" style="margin-top:20px;">
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Biostimulants</span>
-      <h3>Seaweed Extracts &amp; Biostimulants</h3>
-      <p>Premium Ascophyllum Nodosum extracts and humic/fulvic acids for enhanced crop resilience.</p>
-    </div>
-  </div>
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Soil Health</span>
-      <h3>Bio-Organic Soil Conditioners</h3>
-      <p>Improving soil fertility, moisture retention and structure organically.</p>
-    </div>
-  </div>
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Crop Protection</span>
-      <h3>Biopesticides &amp; Bioinsecticides</h3>
-      <p>Eco-safe disease and pest control options, reducing chemical residues.</p>
-    </div>
-  </div>
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Plant Nutrition</span>
-      <h3>Liquid &amp; Complex Fertilisers</h3>
-      <p>Advanced micronutrients, complex formulations and NPK blends for rapid delivery.</p>
-    </div>
-  </div>
+              
+  </table>
 </div>
-  </div></div>
-<div class="div-panel" id="panel-sci" role="tabpanel" aria-labelledby="tab-sci">  <div class="container" style="padding-bottom:60px;">
-<div class="product-grid" style="margin-top:20px;">
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Flagship</span>
-      <h3>ASSURED Portable Diagnostic Device</h3>
-      <p>AI/ML powered device bridging LAMP, CRISPR, and microfluidics in a handheld package.</p>
-    </div>
-  </div>
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Waste</span>
-      <h3>Biomedical Waste Disposal Products</h3>
-      <p>Compliant waste bags, containers, and solutions for biomedical handling.</p>
-    </div>
-  </div>
-  <div class="product-card">
-    <div class="product-body">
-      <span class="product-category">Services</span>
-      <h3>Equipment Calibration &amp; AMC Services</h3>
-      <p>Technical support, maintenance and calibration on crucial lab hardware.</p>
-    </div>
-  </div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_01.jpg" alt="Agri Catalog Reference Page" />
 </div>
-  </div></div>
 
-<section style="background:var(--near-black);padding:var(--sp-7) 0;" aria-label="Contact call to action">
-  <div class="container text-center">
-    <span class="section-label" style="color:var(--brand-teal);">Custom Requirements</span>
-    <h2 class="section-title" style="color:var(--text-on-dark);margin-bottom:var(--sp-2);">Can't Find What You Need?</h2>
-    <p class="section-desc" style="color:var(--mid-grey);margin:0 auto var(--sp-5);">
-      Our team works with researchers, hospitals, and agribusinesses to develop custom solutions. Reach out to discuss your specific requirements.
-    </p>
-    <div style="display:flex;gap:var(--sp-2);justify-content:center;flex-wrap:wrap;">
-      <a href="index.html#contact" class="btn btn-primary">
-        <i class="fa-solid fa-paper-plane"></i> Contact Our Team
-      </a>
-      <a href="tel:+918902052927" class="btn btn-outline">
-        <i class="fa-solid fa-phone"></i> +91 89020 52927
-      </a>
-    </div>
-  </div>
-</section>
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_02.jpg" alt="Agri Catalog Reference Page" />
+</div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
-          <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="18.5" stroke="#53CFCF" stroke-width="1.2" stroke-dasharray="3.5 2.5" opacity="0.7"/>
-            <ellipse cx="20" cy="20" rx="5.5" ry="13" stroke="#53CFCF" stroke-width="1.5"/>
-            <ellipse cx="20" cy="20" rx="13" ry="5.5" stroke="#40A1A1" stroke-width="1.5"/>
-            <circle cx="20" cy="7"  r="2.2" fill="#53CFCF"/>
-            <circle cx="20" cy="33" r="2.2" fill="#53CFCF"/>
-            <circle cx="7"  cy="20" r="2.2" fill="#40A1A1"/>
-            <circle cx="33" cy="20" r="2.2" fill="#40A1A1"/>
-            <circle cx="20" cy="20" r="3.8" fill="#53CFCF"/>
-          </svg>
-          <span>Indi<span class="logo-bio">bio</span>tek</span>
-        </a>
-        <p class="footer-tagline">Indigenous Innovation,<br/>Global Standard Solutions.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#about">About Us</a></li>
-          <li><a href="index.html#divisions">Divisions</a></li>
-          <li><a href="index.html#rnd">R&amp;D Centres</a></li>
-          <li><a href="catalog.html">Product Catalog</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Life Sciences</h4>
-        <ul>
-          <li><a href="catalog.html">Purification Kits</a></li>
-          <li><a href="catalog.html">PCR Enzymes &amp; Reagents</a></li>
-          <li><a href="catalog.html">Molecular Master Mixes</a></li>
-          <li><a href="catalog.html">Antibodies &amp; Proteins</a></li>
-          <li><a href="catalog.html">Buffers &amp; Solutions</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul class="footer-contact">
-          <li><i class="fa-solid fa-phone"></i> +91 8902052927</li>
-          <li><i class="fa-solid fa-envelope"></i> info@indibiotek.com</li>
-          <li><i class="fa-solid fa-location-dot"></i> Kolkata, West Bengal, India</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 Indibiotek Private Limited. All rights reserved.</p>
-      <p class="footer-legal">DPIIT Recognised Startup &nbsp;·&nbsp; CIN: U74999WB2024PTC271006</p>
-    </div>
-  </div>
-</footer>
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_03.jpg" alt="Agri Catalog Reference Page" />
+</div>
 
-<script src="js/main.js"></script>
-<script>
-// ── Catalog page scripts ──
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_04.jpg" alt="Agri Catalog Reference Page" />
+</div>
 
-// Division tabs
-const tabs  = document.querySelectorAll('.div-tab');
-const panels = document.querySelectorAll('.div-panel');
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-    panels.forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected','true');
-    document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
-  });
-});
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_05.jpg" alt="Agri Catalog Reference Page" />
+</div>
 
-// Accordion
-document.querySelectorAll('.acc-header').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    const body = document.getElementById(btn.getAttribute('aria-controls'));
-    if (expanded) { body.hidden = true; } else { body.hidden = false; }
-  });
-});
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_06.jpg" alt="Agri Catalog Reference Page" />
+</div>
 
-// Live search (Life Sciences)
-const searchInput = document.getElementById('ls-search');
-if (searchInput) {
-  searchInput.addEventListener('input', () => {
-    const q = searchInput.value.toLowerCase().trim();
-    const items = document.querySelectorAll('#ls-acc-list .acc-item');
-    items.forEach(item => {
-      if (!q) {
-        item.style.display = '';
-        // hide rows that don't match when no query
-        item.querySelectorAll('tbody tr').forEach(r => r.style.display = '');
-        return;
-      }
-      let visible = 0;
-      item.querySelectorAll('tbody tr').forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (text.includes(q)) { row.style.display = ''; visible++; }
-        else { row.style.display = 'none'; }
-      });
-      // Show/hide the whole accordion item
-      item.style.display = visible > 0 ? '' : 'none';
-      // Auto-open if there are results
-      if (visible > 0 && q) {
-        const btn2 = item.querySelector('.acc-header');
-        btn2.setAttribute('aria-expanded','true');
-        item.querySelector('.acc-body').hidden = false;
-      }
-    });
-  });
-}
-</script>
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_07.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_08.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_09.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_10.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_11.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_12.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_13.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_14.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_15.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
+<div class="pdf-image-page">
+  <img src="images/agri_pdf/page_16.jpg" alt="Agri Catalog Reference Page" />
+</div>
+
 </body>
 </html>
